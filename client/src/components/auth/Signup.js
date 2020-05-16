@@ -1,7 +1,6 @@
 import React , { Fragment, useState } from 'react'
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
-import Header from '../layout/Header'
 import { setAlert } from '../../job/alert'
 import { register } from '../../job/auth'
 import PropTypes from 'prop-types'
@@ -35,8 +34,7 @@ const Signup = ({ setAlert, register, isAuthenticated }) => {
         return <Redirect to='/dashboard' />
 
     return (
-        <Fragment>
-            <Header />
+        <Fragment> 
             <h2>Signup</h2>
             <form method='POST' onSubmit={e => submitForm(e)}>
                 <div>

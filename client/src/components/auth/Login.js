@@ -2,16 +2,14 @@ import React, { Fragment, useState } from 'react'
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import Header from '../layout/Header'
 import { login } from '../../job/auth'
 
 const Login = ({ login, isAuthenticated }) => {
 
     const [formData, setFormData] = useState({
-        email: '',
-        password: ''
+        email: 'ashishyoel23@gmail.com',
+        password: '123456'
     })
-
     const { email, password } = formData
 
     const submitForm = e => {
@@ -27,7 +25,6 @@ const Login = ({ login, isAuthenticated }) => {
 
     return (
         <Fragment>
-            <Header />
             <h2>Login</h2>
             <form method='POST' onSubmit={e => submitForm(e)}>
                 <div>
