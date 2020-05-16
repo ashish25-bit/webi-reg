@@ -35,8 +35,90 @@ const Signup = ({ setAlert, register, isAuthenticated }) => {
 
     return (
         <Fragment> 
-            <h2>Signup</h2>
-            <form method='POST' onSubmit={e => submitForm(e)}>
+
+            <div className="container">
+                <div className="wrapper">
+                    <div className="aside"></div>
+                    <div className='signup_con'>
+                        <form method='POST' className='form' onSubmit={e => submitForm(e)} >
+                            <div className='form_head'>Sign Up</div>
+
+                            {/* name input field */}
+                            <div className="field">
+                                <input 
+                                    type="text" 
+                                    name="name" 
+                                    id="name" 
+                                    placeholder=" " 
+                                    className='input_field' 
+                                    autoComplete="off" 
+                                    required 
+                                    value={name}
+                                    onChange={e => changeHandler(e)}
+                                /> 
+                                <label htmlFor="name" className='label'>Name</label>
+                            </div>
+
+                            {/* email input field */}
+                            <div className="field">
+                                <input 
+                                    type="email" 
+                                    name="email" 
+                                    id="email" 
+                                    placeholder=" " 
+                                    className='input_field' 
+                                    autoComplete="off" 
+                                    required 
+                                    value={email}
+                                    onChange={e => changeHandler(e)}
+                                /> 
+                                <label htmlFor="email" className='label'>Email</label>
+                            </div>
+
+                            {/* password input field */}
+                            <div className="field">
+                                <input 
+                                    type="password" 
+                                    name="password" 
+                                    id="password" 
+                                    placeholder=" " 
+                                    className='input_field' 
+                                    autoComplete="off" 
+                                    required 
+                                    value={password}
+                                    onChange={e => changeHandler(e)}
+                                /> 
+                                <label htmlFor="password" className='label'>Password</label>
+                            </div>
+
+                            {/* password input field */}
+                            <div className="field">
+                                <input 
+                                    type="password" 
+                                    name="cpassword" 
+                                    id="cpassword" 
+                                    placeholder=" " 
+                                    className='input_field' 
+                                    autoComplete="off" 
+                                    required 
+                                    value={cpassword}
+                                    onChange={e => changeHandler(e)}
+                                /> 
+                                <label htmlFor="cpassword" className='label'>Confirm Password</label>
+                            </div>
+
+                            {/* submit button */}
+                            <div className='btn_con'>
+                                <button type="submit">Sign Up</button>
+                            </div>
+
+                            <div className="already">Already have an account? <a href='/login'>Sign In</a></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            {/* <form method='POST' onSubmit={e => submitForm(e)}>
                 <div>
                     <input 
                         type='text' 
@@ -80,7 +162,7 @@ const Signup = ({ setAlert, register, isAuthenticated }) => {
                 <div>
                     <button type='submit'>Submit</button>
                 </div>
-            </form>
+            </form> */}
         </Fragment>
     )
 }

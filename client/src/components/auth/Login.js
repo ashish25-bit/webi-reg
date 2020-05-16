@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
@@ -17,6 +17,9 @@ const Login = ({ login, isAuthenticated }) => {
         login(email, password)
     }
 
+    // changing the document title
+    useEffect(() => {document.title = 'WebiReg - Login'},[])
+
     const changeHandler = e => setFormData({ ...formData, [e.target.name]: e.target.value }) 
 
     // redirect if logged in
@@ -25,32 +28,64 @@ const Login = ({ login, isAuthenticated }) => {
 
     return (
         <Fragment>
-            <h2>Login</h2>
-            <form method='POST' onSubmit={e => submitForm(e)}>
-                <div>
-                    <input
-                        type='email'
-                        name='email'
-                        placeholder='Enter valid e-mail'
-                        value={email}
-                        onChange={e => changeHandler(e)}
-                        required
-                    />
+            <div className="container_login">
+                <div className="wrapper">
+                    <div className="aside">
+                        <ul>
+                            <li>Register for a webinar.</li>
+                            <li>Post webinar details.</li>
+                            <li>Get email before staring of the webinar</li>
+                            <li>Don’t miss any webinar.</li>
+                        </ul>
+                    </div>
+                    <div className='login_con'>
+                        <form method='POST' className='form' onSubmit={e => submitForm(e)}>
+                            <div className='form_head'>Sign In</div>
+
+                            {/* email input field */}
+                            <div className="field">
+                                <input 
+                                    type="email" 
+                                    name="email" 
+                                    id="email" 
+                                    placeholder=" " 
+                                    className='input_field' 
+                                    autoComplete="off" 
+                                    required 
+                                    value={email}
+                                    onChange={e => changeHandler(e)}
+                                /> 
+                                <label htmlFor="email" className='label'>Email</label>
+                            </div>
+
+                            {/* password input field */}
+                            <div className="field">
+                                <input 
+                                    type="password" 
+                                    name="password" 
+                                    id="password" 
+                                    placeholder=" " 
+                                    className='input_field' 
+                                    autoComplete="off" 
+                                    required 
+                                    value={password}
+                                    onChange={e => changeHandler(e)}
+                                /> 
+                                <label htmlFor="password" className='label'>Password</label>
+                            </div>
+
+                            {/* submit button */}
+                            <div className='btn_con'>
+                                <button type="submit">Sign In</button>
+                            </div>
+
+                            <div className="already">Don't have an account? <a href='/'>Sign Up</a></div>
+
+                        </form>
+                    </div>
                 </div>
-                <div>
-                    <input
-                        type='password'
-                        name='password'
-                        placeholder='Enter password'
-                        value={password}
-                        onChange={e => changeHandler(e)}
-                        required
-                    />
-                </div>
-                <div>
-                    <button type='submit'>Submit</button>
-                </div>
-            </form>
+            </div>
+
         </Fragment>
     )
 }

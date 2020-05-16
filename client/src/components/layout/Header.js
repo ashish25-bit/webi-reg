@@ -6,19 +6,22 @@ import { logout } from '../../job/auth'
 
 const Header = ({ auth: { isAuthenticated, loading }, logout }) => {
 
+    console.log('header')
+
     const landLinks = (
-        <div>
-            <Link to='/'>Signup</Link>
-            <Link to='/login'>Login</Link>
+        <div className='header'>
+            <Link className='nav_link' to='/'>Signup</Link>
+            <Link className='nav_link' to='/login'>Login</Link>
+            <Link className='nav_link' to='/'>About Us</Link>
         </div>
     )
 
     const authLinks = (
-        <div>
-            <Link to='/home'>Home</Link>
-            <Link to='/dasboard'>Dasboard</Link>
-            <Link to='/profile'>Profile</Link>
-            <a href='/login' onClick={logout}>Logout</a>
+        <div className='header'>
+            <Link className='nav_link' to='/home'>Home</Link>
+            <Link className='nav_link' to='/dasboard'>Dasboard</Link>
+            <Link className='nav_link' to='/profile'>Profile</Link>
+            <a className='nav_link' href='/login' onClick={logout}>Logout</a>
         </div>
     )
 
