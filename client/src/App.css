@@ -168,3 +168,9 @@ button {
   margin: 10px 0;
   user-select: none;
 }
+
+/* Profile */
+.container_logged {
+  position: relative;
+  top: 50px;
+}

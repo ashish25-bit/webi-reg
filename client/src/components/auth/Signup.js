@@ -117,52 +117,7 @@ const Signup = ({ setAlert, register, isAuthenticated }) => {
                     </div>
                 </div>
             </div>
-
-            {/* <form method='POST' onSubmit={e => submitForm(e)}>
-                <div>
-                    <input 
-                        type='text' 
-                        name='name' 
-                        placeholder='Enter full name' 
-                        value={name}
-                        onChange={e => changeHandler(e)}
-                        required
-                    />
-                </div>
-                <div>
-                    <input 
-                        type='email' 
-                        name='email' 
-                        placeholder='Enter valid e-mail' 
-                        value={email}
-                        onChange={e => changeHandler(e)}
-                        required
-                    />
-                </div>
-                <div>
-                    <input 
-                        type='password' 
-                        name='password' 
-                        placeholder='Enter password' 
-                        value={password}
-                        onChange={e => changeHandler(e)}
-                        required
-                    />
-                </div>
-                <div>
-                    <input 
-                        type='password' 
-                        name='cpassword' 
-                        placeholder='Confirm password' 
-                        value={cpassword}
-                        onChange={e => changeHandler(e)}
-                        required
-                    />
-                </div>
-                <div>
-                    <button type='submit'>Submit</button>
-                </div>
-            </form> */}
+            
         </Fragment>
     )
 }

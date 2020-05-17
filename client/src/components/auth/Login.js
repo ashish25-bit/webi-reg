@@ -7,7 +7,7 @@ import { login } from '../../job/auth'
 const Login = ({ login, isAuthenticated }) => {
 
     const [formData, setFormData] = useState({
-        email: 'ashishyoel23@gmail.com',
+        email: 'sample@gmail.com',
         password: '123456'
     })
     const { email, password } = formData
@@ -24,7 +24,7 @@ const Login = ({ login, isAuthenticated }) => {
 
     // redirect if logged in
     if(isAuthenticated)
-        return <Redirect to='/dashboard' />
+        return <Redirect to='/home' />
 
     return (
         <Fragment>
