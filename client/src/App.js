@@ -4,10 +4,11 @@ import './App.css';
 import Signup from './components/auth/Signup'
 import Login from './components/auth/Login'
 import Header from './components/layout/Header'
-import Alert from './components/layout/Alert'
 import Profile from './components/docs/Profile'
 import Home from './components/docs/Home'
 import Search from './components/docs/Search'
+import CreateProfile from './components/themes/CreateProfile'
+import EditProfile from './components/themes/EditProfile'
 import PrivateRoute from './components/routes/PrivateRoute'
 // redux
 import { Provider } from 'react-redux'
@@ -33,8 +34,9 @@ const App = () => {
             <PrivateRoute exact path='/home' component={Home} />
             <PrivateRoute exact path='/profile' component={Profile} />
             <PrivateRoute exact path='/search' component={Search} />
+            <PrivateRoute exact path='/settings/profile/setup' component={CreateProfile} />
+            <PrivateRoute exact path='/settings/profile/edit' component={EditProfile} />
           </Switch>
-          <Alert />
         </Fragment>
       </Router>
     </Provider>

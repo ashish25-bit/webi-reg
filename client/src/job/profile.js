@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { setAlert } from './alert'
+import { Redirect } from 'react-router-dom'
 
 import {
     GET_PROFILE,
@@ -39,11 +40,8 @@ export const createProfile = (formData, history, edit=false) => async dispatch =
         })
 
         dispatch(setAlert(edit ? 'Profile Updated' : 'Profile Created'))
-
-        if(!edit) {
-            history.push('/home')
-        }
-
+        if(!edit) 
+            history.push('/profile')
     }
     catch (err) {
         const errors = err.response.data.errors

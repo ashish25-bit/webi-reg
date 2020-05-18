@@ -2,20 +2,33 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { createProfile } from '../../job/profile'
+import { createProfile, getCurrentProfile } from '../../job/profile'
+import Alert from '../layout/Alert'
 
-const CreateProfile = ({ createProfile, history }) => {
+const EditProfile = ({profile: { profile, loading }, createProfile, getCurrentProfile, history }) => {
 
-    useEffect(() => {document.title = 'Profile Setup'}, [])
 
     const [ formData, setFormData ] = useState({
-        company: 'SRM', //  required
-        designation: 'Student', // required
-        mobile: '8004373531', // required
+        company: '', //  required
+        designation: '', // required
+        mobile: '', // required
         website: '',
         location: '',
-        bio: 'djchdcv'
+        bio: ''
     })
+
+    useEffect(() => {
+        document.title = 'Profile Edit'
+        getCurrentProfile()
+        setFormData({
+            company: loading || profile.company,
+            designation: loading || profile.designation,
+            mobile: loading || profile.mobile,
+            website: loading || !profile.website ? '' : profile.website,
+            location: loading || !profile.location ? '' : profile.location,
+            bio: loading || !profile.bio ? '' : profile.bio,
+        })
+    }, [loading])
 
     const {
         company,
@@ -30,7 +43,7 @@ const CreateProfile = ({ createProfile, history }) => {
 
     const onSubmit = e => {
         e.preventDefault()
-        createProfile(formData, history)
+        createProfile(formData, history, true)
     }
 
     return (
@@ -38,6 +51,7 @@ const CreateProfile = ({ createProfile, history }) => {
             <form method='POST' onSubmit={e => onSubmit(e)}>
                 {/* company field */}
                 <div className='profile_input'>
+                    <label>company</label>{' '}
                     <input 
                         type='text' 
                         name='company' 
@@ -50,6 +64,7 @@ const CreateProfile = ({ createProfile, history }) => {
 
                 {/* designation */}
                 <div className='profile_input'>
+                    <label>designation</label>{' '}
                     <input 
                         type='text' 
                         name='designation' 
@@ -62,6 +77,7 @@ const CreateProfile = ({ createProfile, history }) => {
 
                 {/* mobile */}
                 <div className='profile_input'>
+                    <label>mobile</label>{' '}
                     <input 
                         type='number' 
                         name='mobile' 
@@ -74,6 +90,7 @@ const CreateProfile = ({ createProfile, history }) => {
 
                 {/* website */}
                 <div className='profile_input'>
+                    <label>website</label>{' '}
                     <input 
                         type='text' 
                         name='website' 
@@ -85,6 +102,7 @@ const CreateProfile = ({ createProfile, history }) => {
 
                 {/* location */}
                 <div className='profile_input'>
+                    <label>location</label>{' '}
                     <input 
                         type='text' 
                         name='location' 
@@ -96,6 +114,7 @@ const CreateProfile = ({ createProfile, history }) => {
 
                 {/* bio */}
                 <div className='profile_input'>
+                    <label>bio</label>{' '}
                     <textarea
                         type='text' 
                         name='bio' 
@@ -111,12 +130,19 @@ const CreateProfile = ({ createProfile, history }) => {
                 </div>
 
             </form>
+            <Alert/>
         </div>
     )
 }
 
-CreateProfile.propTypes = {
-    createProfile: PropTypes.func.isRequired
+EditProfile.propTypes = {
+    createProfile: PropTypes.func.isRequired,
+    profile: PropTypes.object.isRequired,
+    getCurrentProfile: PropTypes.func.isRequired
 }
 
-export default connect(null, { createProfile })(withRouter(CreateProfile))
+const mapStateToProps = state => ({
+    profile: state.profile
+})
+
+export default connect(mapStateToProps, { createProfile, getCurrentProfile })(withRouter(EditProfile))
