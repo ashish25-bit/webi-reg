@@ -3,12 +3,28 @@
   padding: 0;
 }
 body {
+  overflow-x: hidden;
+}
+body, input, button {
   font-family: 'Poppins', sans-serif;
 }
 a { 
   text-decoration: none;
 }
-
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number] {
+  -moz-appearance: textfield;
+}
+.logo {
+  font-family: 'Monofett', cursive;
+  float: left;
+  font-size: 25px;
+  color: #0A3A3E;
+}
 button {
   cursor: pointer;
 }
@@ -22,10 +38,16 @@ button {
 }
 .header {
   text-align: right;
-  width: 80%;
-  margin: 0px auto;
+  width: 100%;
   padding: 20px;
   position: absolute;
+}
+.header_con{
+  width: 80%;
+  margin: 0 auto;
+}
+.headerLogin {
+  box-shadow: 0 3px 3px rgba(0,0,0,0.3);
 }
 .nav_link {
   margin: 0 10px;
@@ -172,5 +194,87 @@ button {
 /* Profile */
 .container_logged {
   position: relative;
-  top: 50px;
+  top: 90px;
+}
+
+.profile_con {
+  width: 500px;
+  margin: 0 auto;
+  box-shadow: 3px 3px 3px rgba(0,0,0,0.3), -3px -3px 3px rgba(0,0,0,0.3), 0px 0px 10px rgba(0,0,0,0.3);
+  padding: 20px;
+}
+.profile_links_con {
+  text-align: center;
+  background: #eee;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+.profile_links {
+  margin: 10px 20px;
+  color: black;
+}
+.profile_con h2{
+  margin-bottom: 10px;
+}
+.pro_info {
+  border: 1px #ccc solid;
+  padding: 5px;
+  border-radius: 10px;
+  font-size: 14px;
+}
+.info_lable {
+  font-size: 12px;
+  color: #aaa;
+  margin-top: 10px;
+}
+.no_value {
+  font-size: 10px;
+  color: #bbb;
+}
+.profile_input {
+  display: flex;
+  flex-direction: column;
+}
+.profile_form {
+  width: 500px;
+  margin: 0 auto;
+  padding: 20px ;
+  box-shadow: 3px 3px 3px rgba(0,0,0,0.3), -3px -3px 3px rgba(0,0,0,0.3);
+  border-radius: 20px;
+}
+.profile_input label {
+  font-size: 13px;
+  color: #aaa;
+  margin-top: 10px;
+}
+.profile_input input, .profile_input textarea{
+  padding: 10px 5px;
+  border: 1px #ddd solid;
+  border-radius: 10px;
+  outline: none;
+}
+.profile_input textarea {
+  width: 485px;
+  height: 150px;
+  resize: none;
+}
+.profile_btn_con {
+  text-align: center;
+  margin-top: 10px;
+}
+.profile_btn_con button, .profile_btn_con a {
+  padding: 5px 8px;
+  border: none;
+  background: black;
+  color: white;
+  margin: 0 10px ;
+  font-size: 15px;
+} 
+.alert-profile {
+  text-align: center;
+  margin: 10px;
+}
+.plc {
+  width: 540px;
+  margin: 0 auto;
 }

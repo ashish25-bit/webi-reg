@@ -8,18 +8,23 @@ const Header = ({ auth: { isAuthenticated, loading }, logout }) => {
 
     const landLinks = (
         <div className='header'>
-            <Link className='nav_link' to='/'>Signup</Link>
-            <Link className='nav_link' to='/login'>Login</Link>
-            <Link className='nav_link' to='/'>About Us</Link>
+            <div className='header_con'>
+                <Link className='nav_link' to='/'>Signup</Link>
+                <Link className='nav_link' to='/login'>Login</Link>
+                <Link className='nav_link' to='/'>About Us</Link>
+            </div>
         </div>
     )
 
     const authLinks = (
-        <div className='header'>
-            <Link className='nav_link' to='/home'>Home</Link>
-            <Link className='nav_link' to='/search'>Search</Link>
-            <Link className='nav_link' to='/profile'>Profile</Link>
-            <a className='nav_link' href='/login' onClick={logout}>Logout</a>
+        <div className='header headerLogin'>
+            <div className='header_con'>
+                <Link className='logo' to='/home'>WR</Link>
+                <Link className='nav_link' to='/home'>Home</Link>
+                <Link className='nav_link' to='/search'>Search</Link>
+                <Link className='nav_link' to='/profile'>Profile</Link>
+                <a className='nav_link' href='/login' onClick={logout}>Logout</a>
+            </div>
         </div>
     )
 

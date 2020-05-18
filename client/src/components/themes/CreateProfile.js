@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 import { createProfile } from '../../job/profile'
 
 const CreateProfile = ({ createProfile, history }) => {
@@ -35,12 +35,15 @@ const CreateProfile = ({ createProfile, history }) => {
 
     return (
         <div className='container_logged'>
-            <form method='POST' onSubmit={e => onSubmit(e)}>
+            <form method='POST' onSubmit={e => onSubmit(e)} className='profile_form'>
+                <h2>Create Profile</h2>
                 {/* company field */}
                 <div className='profile_input'>
+                    <label>Company</label>
                     <input 
                         type='text' 
                         name='company' 
+                        placeholder='company'
                         required 
                         autoComplete='off' 
                         value={company}
@@ -50,6 +53,7 @@ const CreateProfile = ({ createProfile, history }) => {
 
                 {/* designation */}
                 <div className='profile_input'>
+                    <label>Designation</label>
                     <input 
                         type='text' 
                         name='designation' 
@@ -62,6 +66,7 @@ const CreateProfile = ({ createProfile, history }) => {
 
                 {/* mobile */}
                 <div className='profile_input'>
+                    <label>Mobile</label>
                     <input 
                         type='number' 
                         name='mobile' 
@@ -74,6 +79,7 @@ const CreateProfile = ({ createProfile, history }) => {
 
                 {/* website */}
                 <div className='profile_input'>
+                    <label>Website</label>
                     <input 
                         type='text' 
                         name='website' 
@@ -85,6 +91,7 @@ const CreateProfile = ({ createProfile, history }) => {
 
                 {/* location */}
                 <div className='profile_input'>
+                    <label>Location</label>
                     <input 
                         type='text' 
                         name='location' 
@@ -96,6 +103,7 @@ const CreateProfile = ({ createProfile, history }) => {
 
                 {/* bio */}
                 <div className='profile_input'>
+                    <label>Bio</label>
                     <textarea
                         type='text' 
                         name='bio' 
@@ -106,8 +114,9 @@ const CreateProfile = ({ createProfile, history }) => {
                 </div>
 
                 {/* submit button */}
-                <div>
-                    <button type='submit'>Add</button>
+                <div className='profile_btn_con'>
+                    <button type='submit'>Add</button>{ ' | ' }
+                    <Link to='/profile'>Go Back</Link>
                 </div>
 
             </form>

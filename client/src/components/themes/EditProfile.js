@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { createProfile, getCurrentProfile } from '../../job/profile'
 import Alert from '../layout/Alert'
+import ProfileLinks from './ProfileLinks'
 
 const EditProfile = ({profile: { profile, loading }, createProfile, getCurrentProfile, history }) => {
 
@@ -48,15 +49,17 @@ const EditProfile = ({profile: { profile, loading }, createProfile, getCurrentPr
 
     return (
         <div className='container_logged'>
-            <form method='POST' onSubmit={e => onSubmit(e)}>
+            <div className='plc'><ProfileLinks /></div>
+            <form method='POST' onSubmit={e => onSubmit(e)} className='profile_form'>
+                <h2>Edit Profile</h2>
                 {/* company field */}
                 <div className='profile_input'>
-                    <label>company</label>{' '}
+                    <label>Company</label>
                     <input 
-                        type='text' 
-                        name='company' 
+                        type="text"
+                        name="company"
+                        autoComplete="off"
                         required 
-                        autoComplete='off' 
                         value={company}
                         onChange={e => changeHandler(e)}
                     />
@@ -64,7 +67,7 @@ const EditProfile = ({profile: { profile, loading }, createProfile, getCurrentPr
 
                 {/* designation */}
                 <div className='profile_input'>
-                    <label>designation</label>{' '}
+                <label>Designation</label>
                     <input 
                         type='text' 
                         name='designation' 
@@ -77,7 +80,7 @@ const EditProfile = ({profile: { profile, loading }, createProfile, getCurrentPr
 
                 {/* mobile */}
                 <div className='profile_input'>
-                    <label>mobile</label>{' '}
+                    <label>Mobile</label>
                     <input 
                         type='number' 
                         name='mobile' 
@@ -90,7 +93,7 @@ const EditProfile = ({profile: { profile, loading }, createProfile, getCurrentPr
 
                 {/* website */}
                 <div className='profile_input'>
-                    <label>website</label>{' '}
+                    <label>Website</label>
                     <input 
                         type='text' 
                         name='website' 
@@ -102,7 +105,7 @@ const EditProfile = ({profile: { profile, loading }, createProfile, getCurrentPr
 
                 {/* location */}
                 <div className='profile_input'>
-                    <label>location</label>{' '}
+                    <label>Location</label>
                     <input 
                         type='text' 
                         name='location' 
@@ -114,7 +117,7 @@ const EditProfile = ({profile: { profile, loading }, createProfile, getCurrentPr
 
                 {/* bio */}
                 <div className='profile_input'>
-                    <label>bio</label>{' '}
+                    <label>Bio</label>
                     <textarea
                         type='text' 
                         name='bio' 
@@ -125,12 +128,12 @@ const EditProfile = ({profile: { profile, loading }, createProfile, getCurrentPr
                 </div>
 
                 {/* submit button */}
-                <div>
-                    <button type='submit'>Add</button>
+                <div className='profile_btn_con'>
+                    <button type='submit'>Update</button>{ ' | ' }
+                    <Link to='/profile'>Go Back</Link>
                 </div>
-
+                <p className="alert-profile"><Alert/></p>
             </form>
-            <Alert/>
         </div>
     )
 }
