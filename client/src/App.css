@@ -5,11 +5,14 @@
 body {
   overflow-x: hidden;
 }
-body, input, button {
+body, input, button, textarea {
   font-family: 'Poppins', sans-serif;
 }
 a { 
   text-decoration: none;
+}
+input, button, textarea {
+  outline: none;
 }
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -202,6 +205,7 @@ button {
   margin: 0 auto;
   box-shadow: 3px 3px 3px rgba(0,0,0,0.3), -3px -3px 3px rgba(0,0,0,0.3), 0px 0px 10px rgba(0,0,0,0.3);
   padding: 20px;
+  border-radius: 20px;
 }
 .profile_links_con {
   text-align: center;
@@ -241,6 +245,7 @@ button {
   padding: 20px ;
   box-shadow: 3px 3px 3px rgba(0,0,0,0.3), -3px -3px 3px rgba(0,0,0,0.3);
   border-radius: 20px;
+  margin-bottom: 20px;
 }
 .profile_input label {
   font-size: 13px;
@@ -251,7 +256,6 @@ button {
   padding: 10px 5px;
   border: 1px #ddd solid;
   border-radius: 10px;
-  outline: none;
 }
 .profile_input textarea {
   width: 485px;
@@ -265,10 +269,11 @@ button {
 .profile_btn_con button, .profile_btn_con a {
   padding: 5px 8px;
   border: none;
-  background: black;
+  background: #000;
   color: white;
   margin: 0 10px ;
   font-size: 15px;
+  border-radius: 30px;
 } 
 .alert-profile {
   text-align: center;
@@ -277,4 +282,20 @@ button {
 .plc {
   width: 540px;
   margin: 0 auto;
+}
+.social_input_con {
+  margin: 15px 0;
+}
+.social_input_toggle_btn button{
+  width: 150px;
+  border: none;
+  background: #ccc;
+  padding: 5px 0;
+}
+.social_input_toggle_btn span {
+  font-size: 12px;
+  color: #aaa;
+}
+.social_input_con small {
+  color: #aaaaaa;
 }

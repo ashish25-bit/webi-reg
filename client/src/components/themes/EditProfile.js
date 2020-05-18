@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
@@ -15,8 +15,14 @@ const EditProfile = ({profile: { profile, loading }, createProfile, getCurrentPr
         mobile: '', // required
         website: '',
         location: '',
-        bio: ''
+        bio: '',
+        twitter: '',
+        facebook: '',
+        linkedin: '',
+        instagram: ''
     })
+
+    const [ displaySocialInputs, toggleSocialInputs ] = useState(false)
 
     useEffect(() => {
         document.title = 'Profile Edit'
@@ -37,7 +43,11 @@ const EditProfile = ({profile: { profile, loading }, createProfile, getCurrentPr
         mobile, 
         website,
         location,
-        bio
+        bio,
+        twitter,
+        facebook,
+        linkedin,
+        instagram
     } = formData
 
     const changeHandler = e => setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -127,11 +137,77 @@ const EditProfile = ({profile: { profile, loading }, createProfile, getCurrentPr
                     ></textarea>
                 </div>
 
+                {/* social inputs */}
+                <div className='social_input_con'>
+                    <div className='social_input_toggle_btn'>
+                        <button 
+                            type='button' 
+                            onClick = {
+                                () => toggleSocialInputs(!displaySocialInputs)
+                            }>Social Links
+                        </button>{' '}
+                        <span>Optional</span>
+                    </div>
+
+                    { !displaySocialInputs && <small>Press this button to display the container</small> }
+
+                    {
+                        displaySocialInputs && <Fragment>
+                            {/* twitter */}
+                            <div className='profile_input'>
+                                <label>Twitter</label>
+                                <input 
+                                type='text'
+                                name='twitter'
+                                autoComplete='off'
+                                value={twitter}
+                                onChange={e => changeHandler(e)}
+                                />
+                            </div>
+                            {/* facebook */}
+                            <div className='profile_input'>
+                                <label>Facebook</label>
+                                <input 
+                                type='text'
+                                name='facebook'
+                                autoComplete='off'
+                                value={facebook}
+                                onChange={e => changeHandler(e)}
+                                />
+                            </div>
+                            {/* linkedin */}
+                            <div className='profile_input'>
+                                <label>LinkedIn</label>
+                                <input 
+                                type='text'
+                                name='linkedin'
+                                autoComplete='off'
+                                value={linkedin}
+                                onChange={e => changeHandler(e)}
+                                />
+                            </div>
+                            {/* instagram */}
+                            <div className='profile_input'>
+                                <label>Instagram</label>
+                                <input 
+                                type='text'
+                                name='instagram'
+                                autoComplete='off'
+                                value={instagram}
+                                onChange={e => changeHandler(e)}
+                                />
+                            </div>
+                        </Fragment>
+                    }
+
+                </div>
+
                 {/* submit button */}
                 <div className='profile_btn_con'>
                     <button type='submit'>Update</button>{ ' | ' }
                     <Link to='/profile'>Go Back</Link>
                 </div>
+
                 <p className="alert-profile"><Alert/></p>
             </form>
         </div>

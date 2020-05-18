@@ -34,8 +34,8 @@ const Profile = ({ getCurrentProfile, auth: { user }, profile: { profile ,loadin
                         <p className='pro_info'>
                             {
                                 profile.website ? 
-                                    <a href={profile.website}>{profile.website}</a> : 
-                                    <span className='no_value'>Go to edit profile to add website</span>
+                                    <a href={profile.website} rel="noopener noreferrer" target='_blank'>{profile.website}</a> : 
+                                    <span className='no_value'>Go to edit profile to add website.</span>
                             }
                         </p>
                         <p className='info_lable'>Location</p>
@@ -43,7 +43,7 @@ const Profile = ({ getCurrentProfile, auth: { user }, profile: { profile ,loadin
                             {
                                 profile.location ?
                                 <Fragment>{profile.location}</Fragment> : 
-                                <span className='no_value'>Go to edit profile to add location</span>
+                                <span className='no_value'>Go to edit profile to add location.</span>
                             }
                         </p>
                         <p className='info_lable'>Bio</p>
@@ -51,9 +51,49 @@ const Profile = ({ getCurrentProfile, auth: { user }, profile: { profile ,loadin
                             {
                                 profile.bio ? 
                                 <Fragment>{profile.bio}</Fragment> : 
-                                <span className='no_value'>Go to edit profile to add bio</span>
+                                <span className='no_value'>Go to edit profile to add bio.</span>
                             } 
                         </p>
+                        {
+                            profile.social && <Fragment>
+                                {/* Twitter */}
+                                <p className='info_lable'>Twitter</p>
+                                <p className='pro_info'>
+                                    {
+                                        profile.social.twitter ?
+                                        <a href={profile.social.twitter} rel="noopener noreferrer" target='_blank'>{profile.social.twitter}</a> :
+                                        <span className='no_value'>Go to edit profile to add twitter account link.</span>
+                                    }
+                                </p>
+                                {/* Facebook */}
+                                <p className='info_lable'>Facebook</p>
+                                <p className='pro_info'>
+                                    {
+                                        profile.social.facebook ?
+                                        <a href={profile.social.facebook} rel="noopener noreferrer" target='_blank'>{profile.social.facebook}</a> :
+                                        <span className='no_value'>Go to edit profile to add facebook account link.</span>
+                                    }
+                                </p>
+                                {/* linkedin */}
+                                <p className='info_lable'>Linkedin</p>
+                                <p className='pro_info'>
+                                    {
+                                        profile.social.linkedin ?
+                                        <a href={profile.social.linkedin} rel="noopener noreferrer" target='_blank'>{profile.social.linkedin}</a> :
+                                        <span className='no_value'>Go to edit profile to add linkedin account link.</span>
+                                    }
+                                </p>
+                                {/* instagram */}
+                                <p className='info_lable'>Instagram</p>
+                                <p className='pro_info'>
+                                    {
+                                        profile.social.instagram ?
+                                        <a href={profile.social.instagram} rel="noopener noreferrer" target='_blank'>{profile.social.instagram}</a> :
+                                        <span className='no_value'>Go to edit profile to add instagram account link.</span>
+                                    }
+                                </p>
+                            </Fragment>
+                        }
                     </Fragment> : 
 
                     <Fragment>

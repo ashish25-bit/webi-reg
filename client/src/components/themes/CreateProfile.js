@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
@@ -14,8 +14,14 @@ const CreateProfile = ({ createProfile, history }) => {
         mobile: '8004373531', // required
         website: '',
         location: '',
-        bio: 'djchdcv'
+        bio: 'Kuch nhi aata.. Magar seekh rha hu abhi.. shayad se kuch ho jay.. ', 
+        twitter: '',
+        facebook: '',
+        linkedin: '',
+        instagram: ''
     })
+
+    const [ displaySocialInputs, toggleSocialInputs ] = useState(false)
 
     const {
         company,
@@ -23,7 +29,11 @@ const CreateProfile = ({ createProfile, history }) => {
         mobile, 
         website,
         location,
-        bio
+        bio, 
+        twitter,
+        facebook,
+        linkedin,
+        instagram
     } = formData
 
     const changeHandler = e => setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -111,6 +121,71 @@ const CreateProfile = ({ createProfile, history }) => {
                         value={bio}
                         onChange={e => changeHandler(e)}
                     ></textarea>
+                </div>
+
+                {/* social inputs */}
+                <div className='social_input_con'>
+                    <div className='social_input_toggle_btn'>
+                        <button 
+                            type='button' 
+                            onClick = {
+                                () => toggleSocialInputs(!displaySocialInputs)
+                            }>Social Links
+                        </button>{' '}
+                        <span>Optional</span>
+                    </div>
+
+                    { !displaySocialInputs && <small>Press this button to display the container</small> }
+
+                    {
+                        displaySocialInputs && <Fragment>
+                            {/* twitter */}
+                            <div className='profile_input'>
+                                <label>Twitter</label>
+                                <input 
+                                type='text'
+                                name='twitter'
+                                autoComplete='off'
+                                value={twitter}
+                                onChange={e => changeHandler(e)}
+                                />
+                            </div>
+                            {/* facebook */}
+                            <div className='profile_input'>
+                                <label>Facebook</label>
+                                <input 
+                                type='text'
+                                name='facebook'
+                                autoComplete='off'
+                                value={facebook}
+                                onChange={e => changeHandler(e)}
+                                />
+                            </div>
+                            {/* linkedin */}
+                            <div className='profile_input'>
+                                <label>LinkedIn</label>
+                                <input 
+                                type='text'
+                                name='linkedin'
+                                autoComplete='off'
+                                value={linkedin}
+                                onChange={e => changeHandler(e)}
+                                />
+                            </div>
+                            {/* instagram */}
+                            <div className='profile_input'>
+                                <label>Instagram</label>
+                                <input 
+                                type='text'
+                                name='instagram'
+                                autoComplete='off'
+                                value={instagram}
+                                onChange={e => changeHandler(e)}
+                                />
+                            </div>
+                        </Fragment>
+                    }
+
                 </div>
 
                 {/* submit button */}
