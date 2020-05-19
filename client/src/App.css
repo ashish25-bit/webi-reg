@@ -130,7 +130,7 @@ button {
   letter-spacing: 0.05em;
   font-size: 0.4em;
   user-select: none;
-  color: #ccc;
+  color: #757575;
 }
 .input_field:placeholder-shown + .label {
   cursor: text;
@@ -141,7 +141,7 @@ button {
   transform-origin: left bottom;
   transform: translate(0, 1.4rem) scale(1.5);
 }
-::-webkit-input-placeholder {
+.input_field::-webkit-input-placeholder {
   opacity: 0;
   transition: inherit;
 }
@@ -206,6 +206,7 @@ button {
   box-shadow: 3px 3px 3px rgba(0,0,0,0.3), -3px -3px 3px rgba(0,0,0,0.3), 0px 0px 10px rgba(0,0,0,0.3);
   padding: 20px;
   border-radius: 20px;
+  margin-bottom: 30px;
 }
 .profile_links_con {
   text-align: center;
@@ -228,7 +229,7 @@ button {
 }
 .info_lable {
   font-size: 12px;
-  color: #aaa;
+  color: #757575;
   margin-top: 10px;
 }
 .no_value {
@@ -298,4 +299,92 @@ button {
 }
 .social_input_con small {
   color: #aaaaaa;
+}
+
+.edu_exp_con {
+  margin: 20px 0;
+}
+.edu_exp_con p {
+  color: rgba(0,0,0,0.9);
+  font-size: 14px;
+}
+.edu_exp_con a {
+  color: #009595;
+  font-size: 13px;
+}
+.edu_exp_table {
+  width: 100%;
+  margin-bottom: 10px;
+}
+.edu_exp_table th {
+  background: #ddd;
+  padding: 5px 3px;
+  color: #0A3A3E;
+  font-size: 14px;
+}
+.edu_exp_table td {
+  font-size: 13px;
+  padding: 5px 3px;
+  background: #eee;
+}
+.fa-arrow-left {
+  font-size: 15px;
+  position: relative;
+  bottom: 6px;
+  left: 8px;
+  color: #aaa;
+}
+.arrow_link {
+  position: relative;
+  display: inline-block;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  box-shadow: 0 0 3px rgba(0,0,0,0.3) ;
+  margin-right: 10px;
+}
+.toDateCheckBox {
+  position: relative;
+  width: 100px;
+  height: 40px;
+  -webkit-appearance: none;
+  outline: none;
+  border-bottom: 10px;
+  border: 1px #ccc solid;
+  border-radius: 10px;
+  cursor: pointer;
+  top: 24px;
+}
+.toDateCheckBox:checked {
+  border: 1px #009595 solid;
+}
+
+.toDateCheckBox::before {
+  content: 'Current';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  color: #757575;
+  font-weight: bold;
+}
+.toDateCheckBox:checked::before {
+  color: #009595;
+}
+.profile_date_con {
+  display: flex;
+  margin-top: 15px;
+}
+.date_input {
+  flex: 1;
+}
+.date_input input {
+  width: 90%;
+  padding: 10px 5px;
+  border-radius: 10px;
+  border: 1px #ccc solid;
+}
+.date_input label {
+  font-size: 13px;
+  color: #aaa;
 }

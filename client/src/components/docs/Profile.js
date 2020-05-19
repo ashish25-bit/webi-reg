@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom'
 import { getCurrentProfile } from '../../job/profile'
 import Spinner from '../layout/Spinner'
 import ProfileLinks from '../themes/ProfileLinks'
+import Experience from '../themes/Experience'
+import Education from '../themes/Education'
 
 const Profile = ({ getCurrentProfile, auth: { user }, profile: { profile ,loading } }) => {
 
@@ -94,6 +96,27 @@ const Profile = ({ getCurrentProfile, auth: { user }, profile: { profile ,loadin
                                 </p>
                             </Fragment>
                         }
+
+                        {/* Experiences */}
+                        <div className='edu_exp_con'>
+                            <h3>Experience</h3>
+                            <Fragment>{ profile.experience.length ? 
+                                    <Experience experience={profile.experience} /> : 
+                                    <p>There is no experience list {' | '} 
+                                        <Link to='settings/profile/experience'>Add Experience</Link>
+                                    </p> 
+                            }</Fragment>
+
+                            {/* Education */}
+                            <h3>Education</h3>
+                            <Fragment>{ profile.education.length ? 
+                                    <Education education={profile.education} /> : 
+                                    <p>There is no education list {' | '} 
+                                        <Link to='settings/profile/education'>Add Education</Link>
+                                    </p> 
+                            }</Fragment>
+                        </div>
+
                     </Fragment> : 
 
                     <Fragment>

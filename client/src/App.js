@@ -9,6 +9,8 @@ import Home from './components/docs/Home'
 import Search from './components/docs/Search'
 import CreateProfile from './components/themes/CreateProfile'
 import EditProfile from './components/themes/EditProfile'
+import AddExperience from './components/themes/AddExperience'
+import AddEducation from './components/themes/AddEducation'
 import PrivateRoute from './components/routes/PrivateRoute'
 // redux
 import { Provider } from 'react-redux'
@@ -36,6 +38,8 @@ const App = () => {
             <PrivateRoute exact path='/search' component={Search} />
             <PrivateRoute exact path='/settings/profile/setup' component={CreateProfile} />
             <PrivateRoute exact path='/settings/profile/edit' component={EditProfile} />
+            <PrivateRoute exact path='/settings/profile/experience' component={AddExperience} />
+            <PrivateRoute exact path='/settings/profile/education' component={AddEducation} />
           </Switch>
         </Fragment>
       </Router>

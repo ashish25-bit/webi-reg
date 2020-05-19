@@ -5,6 +5,7 @@ import { Link, withRouter } from 'react-router-dom'
 import { createProfile, getCurrentProfile } from '../../job/profile'
 import Alert from '../layout/Alert'
 import ProfileLinks from './ProfileLinks'
+import ProfileHead from '../layout/ProfileHead'
 
 const EditProfile = ({profile: { profile, loading }, createProfile, getCurrentProfile, history }) => {
 
@@ -61,7 +62,8 @@ const EditProfile = ({profile: { profile, loading }, createProfile, getCurrentPr
         <div className='container_logged'>
             <div className='plc'><ProfileLinks /></div>
             <form method='POST' onSubmit={e => onSubmit(e)} className='profile_form'>
-                <h2>Edit Profile</h2>
+                <ProfileHead head='Edit Profile' />
+
                 {/* company field */}
                 <div className='profile_input'>
                     <label>Company</label>
