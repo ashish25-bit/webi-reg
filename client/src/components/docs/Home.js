@@ -127,15 +127,15 @@ const Home = ({ auth: { user } }) => {
                     </span>
                     {/* for year */}
                     <span>
-                        { selectedYear !== date.getFullYear() && <Fragment>
-                                <button 
-                                className='prev'
-                                onClick={() => setSelectedYear(prevState => prevState - 1)} >
-                                    <i className="fa fa-caret-left" aria-hidden="true"></i>
-                                </button>
-                            </Fragment>
-                        }
+                        <button 
+                            className='prev'
+                            onClick={() => setSelectedYear(prevState => prevState - 1)}
+                            disabled={selectedYear === date.getFullYear()} >
+                                <i className="fa fa-caret-left" aria-hidden="true"></i>
+                        </button>
+
                         <span className='selected_year'>{selectedYear}</span>
+                        
                         <button 
                             className='next'
                             onClick={() => setSelectedYear(prevState => prevState + 1)} >
