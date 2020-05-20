@@ -388,3 +388,69 @@ button {
   font-size: 13px;
   color: #aaa;
 }
+
+/* calendar */
+.calendar_con {
+  width: 500px;
+  margin: 0 auto;
+  box-shadow: 3px 3px 3px rgba(0,0,0,0.3), -3px -3px 3px rgba(0,0,0,0.3);
+  padding: 10px;
+  border-radius: 20px;
+}
+.week_container {
+  display: grid;
+  grid-template-columns: repeat(7, auto);
+  justify-content: space-around;
+  background: #ddd;
+  margin: 10px 0;
+  padding: 5px 0;
+  border-radius: 15px;
+  font-size: 14px;
+  user-select: none;
+}
+.dates_container {
+  display: grid;
+  grid-template-columns: repeat(7, auto);
+  justify-content: space-around;
+}
+.pastDate {
+  opacity: 0.5;
+}
+.date,.pastDate {
+  background: #eee;
+  margin: 3px 0;
+  display: flex;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+}
+.date,.today {
+  cursor: pointer;
+}
+.today {
+  border-radius: 50%;
+  color: white;
+  background: #1e686f;
+}
+.date_selector {
+  text-align: center;
+  font-size: 15px;
+  font-weight: bolder;
+}
+.fa-caret-right, .fa-caret-left {
+  font-size: 20px;
+  position: relative;
+  top: 2px;
+}
+.next, .prev {
+  margin: 0 5px;
+  border: none;
+  background: white;
+}
+.selected_mon {
+  display: inline-block;
+  width: 30px;
+}
