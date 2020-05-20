@@ -396,6 +396,7 @@ button {
   box-shadow: 3px 3px 3px rgba(0,0,0,0.3), -3px -3px 3px rgba(0,0,0,0.3);
   padding: 10px;
   border-radius: 20px;
+  position: relative;
 }
 .week_container {
   display: grid;
@@ -439,18 +440,48 @@ button {
   text-align: center;
   font-size: 15px;
   font-weight: bolder;
+  margin: 20px 0;
 }
-.fa-caret-right, .fa-caret-left {
-  font-size: 20px;
+.fa-caret-right, .fa-caret-left, .fa-caret-down {
+  font-size: 18px;
   position: relative;
   top: 2px;
 }
-.next, .prev {
+.next, .prev, .mon_down {
   margin: 0 5px;
   border: none;
   background: white;
 }
-.selected_mon {
+.selected_mon, .selected_year {
   display: inline-block;
   width: 30px;
+}
+.date_selector span {
+  margin: 0 15px;
+  position: relative;
+}
+.allowed_months {
+  position: absolute;
+  list-style: none;
+  left: 40%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 4px rgba(0,0,0,0.9);
+  animation: reveal 0.5s ease;
+  z-index: 1000;
+}
+@keyframes reveal {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.allowed_months li {
+  padding: 5px 10px ;
+  cursor: pointer;
+  font-weight: lighter;
+}
+.allowed_months li:nth-child(odd) {
+  background: #eee;
 }

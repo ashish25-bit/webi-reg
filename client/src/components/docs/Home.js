@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import uuid from 'react-uuid'
 
 const Home = ({ auth: { user } }) => {
 
@@ -8,17 +9,17 @@ const Home = ({ auth: { user } }) => {
     const monthShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
     const date = new Date()
 
-    // const selectedYear = date.getFullYear()
-    // const selectedMonth = monthShort[date.getMonth()]
     const todayDate = date.getDate()
+    let filterMonths = monthShort.filter((mon, index) => index >= date.getMonth())
 
     const [ selectedYear, setSelectedYear ] = useState(date.getFullYear())
     const [ selectedMonth, setSelectedMonth ] = useState(monthShort[date.getMonth()])
-    const [ index, setIndex ] = useState(date.getMonth())
-    const [ currentIndex, setCurrentIndex ] = useState(date.getMonth())
+    const [ allowedMonths, setAllowedMonths ] = useState(filterMonths)
+    const [ showMonths, toggleShowMonths ] = useState(false)
 
     useEffect(() => {
-        let days = getNumberOfDays()
+        let days = getNumberOfDays()        
+        setAllowedMonths(selectedYear === date.getFullYear() ? filterMonths : monthShort)
         // this will contain the day of the 1st date
         const first = new Date(selectedYear, monthShort.indexOf(selectedMonth), 1).getDay()
         displayWeekDays(first)
@@ -91,35 +92,58 @@ const Home = ({ auth: { user } }) => {
         console.log(e.target.innerText)
     }
 
-    const nextMon = () => {
-        // currentIndex < 11 ? 
-        // if(currentIndex < 11) {
-        //     setCurrentIndex(prevState => prevState + 1)
-        //     setSelectedMonth(monthShort[currentIndex])
-        // }
-        setCurrentIndex(prevState => prevState < 11 ? prevState + 1 : index )
-        // else {
-        //     setCurrentIndex(index)
-        //     
-        // }
-        setSelectedMonth(monthShort[currentIndex])
-    }
-
-    const prevMon = () => {
-        setSelectedMonth(monthShort[index])
-    }
-
     return (
         <div className='container_logged'>
             <div className='calendar_con'>
                 <h3>{date.getDate()} {monthShort[date.getMonth()]}, {date.getFullYear()}</h3>
                 <div className='week_container'></div>
+                <h5>{selectedMonth} - {selectedYear}</h5>
                 <div className='dates_container'></div>
                 <div className='date_selector'>
-                    <button className='prev' onClick={() => prevMon()}><i class="fa fa-caret-left" aria-hidden="true"></i></button>
-                    <span className='selected_mon'>{selectedMonth}</span>
-                    <button className='next' onClick={() => nextMon()}><i class="fa fa-caret-right" aria-hidden="true"></i></button>
+                    {/* for months */}
+                    <span>
+                        <span className='selected_mon'>{selectedMonth}</span>
+                        <button 
+                            className='mon_down' 
+                            onClick={() => toggleShowMonths(!showMonths)} >
+                                <i className="fa fa-caret-down" aria-hidden="true"></i>
+                        </button>
+                        {
+                            showMonths && <Fragment>
+                                <ul className='allowed_months'> {
+                                    allowedMonths.map(mon => (
+                                        <li 
+                                            key={uuid()}
+                                            onClick={e => {
+                                                setSelectedMonth(e.target.innerText)
+                                                toggleShowMonths(!showMonths)
+                                            }}
+                                        >{mon}</li>
+                                    ))
+                                }
+                                </ul>
+                            </Fragment>
+                        }
+                    </span>
+                    {/* for year */}
+                    <span>
+                        { selectedYear !== date.getFullYear() && <Fragment>
+                                <button 
+                                className='prev'
+                                onClick={() => setSelectedYear(prevState => prevState - 1)} >
+                                    <i className="fa fa-caret-left" aria-hidden="true"></i>
+                                </button>
+                            </Fragment>
+                        }
+                        <span className='selected_year'>{selectedYear}</span>
+                        <button 
+                            className='next'
+                            onClick={() => setSelectedYear(prevState => prevState + 1)} >
+                                <i className="fa fa-caret-right" aria-hidden="true"></i>
+                        </button>
+                    </span>
                 </div>
+                
             </div>
         </div>
     )
