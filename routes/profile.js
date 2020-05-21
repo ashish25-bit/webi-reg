@@ -55,15 +55,15 @@ router.post('/',
         profileFields.company = company
         profileFields.designation = designation
         profileFields.mobile = mobile
-        if (website) profileFields.website = website
-        if (location) profileFields.location = location
-        if (bio) profileFields.bio = bio
+        profileFields.website = website
+        profileFields.location = location
+        profileFields.bio = bio
 
         profileFields.social = {}
-        if (bio) profileFields.social.twitter = twitter
-        if (bio) profileFields.social.facebook = facebook
-        if (bio) profileFields.social.linkedin = linkedin
-        if (bio) profileFields.social.instagram = instagram
+        if (twitter) profileFields.social.twitter = twitter
+        if (facebook) profileFields.social.facebook = facebook
+        if (linkedin) profileFields.social.linkedin = linkedin
+        if (instagram) profileFields.social.instagram = instagram
 
         try {
             let profile = await Profile.findOne({ user: req.user.id })

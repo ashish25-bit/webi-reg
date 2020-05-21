@@ -1,3 +1,5 @@
+/* basic styling common to all pages */
+
 *{
   margin: 0;
   padding: 0;
@@ -31,6 +33,9 @@ input[type=number] {
 button {
   cursor: pointer;
 }
+
+/* for login and signup pages */
+
 .container {
   width: 100%;
   height: 100vh;
@@ -179,6 +184,7 @@ button {
 }
 
 /* login page */
+
 .container_login {
   width: 100%;
   height: 100vh;
@@ -195,11 +201,11 @@ button {
 }
 
 /* Profile */
+
 .container_logged {
   position: relative;
   top: 90px;
 }
-
 .profile_con {
   width: 500px;
   margin: 0 auto;
@@ -236,7 +242,7 @@ button {
   font-size: 10px;
   color: #bbb;
 }
-.profile_input {
+.profile_input, .event_input {
   display: flex;
   flex-direction: column;
 }
@@ -248,26 +254,50 @@ button {
   border-radius: 20px;
   margin-bottom: 20px;
 }
-.profile_input label {
+.profile_input label, 
+.event_input label, 
+.aside_btn_input label {
   font-size: 13px;
-  color: #aaa;
+  color: #757575;
   margin-top: 10px;
 }
-.profile_input input, .profile_input textarea{
+
+.profile_input input, 
+.profile_input textarea, 
+.event_input input, 
+.aside_btn_input input, 
+.event_input textarea {
   padding: 10px 5px;
   border: 1px #ddd solid;
   border-radius: 10px;
 }
-.profile_input textarea {
+.profile_input textarea, .event_input textarea {
   width: 485px;
   height: 150px;
   resize: none;
 }
-.profile_btn_con {
+.tag_con {
+  margin: 10px 0 20px;
+  padding: 10px;
+  color: #757575;
+  border: 1px #ccc solid;
+  font-size: 13px;
+  border-radius: 10px;
+}
+.tag {
+  padding: 3px;
+  border-radius: 5px;
+  background: #009595;
+  font-weight: bolder;
+  color: white;
+  margin: 0 5px;
+  cursor: pointer;
+}
+.profile_btn_con, .post_event_btn {
   text-align: center;
   margin-top: 10px;
 }
-.profile_btn_con button, .profile_btn_con a {
+.profile_btn_con button, .profile_btn_con a, .post_event_btn button {
   padding: 5px 8px;
   border: none;
   background: #000;
@@ -276,6 +306,9 @@ button {
   font-size: 15px;
   border-radius: 30px;
 } 
+
+/* edit profile, add education, add experience */
+
 .alert-profile {
   text-align: center;
   margin: 10px;
@@ -300,7 +333,6 @@ button {
 .social_input_con small {
   color: #aaaaaa;
 }
-
 .edu_exp_con {
   margin: 20px 0;
 }
@@ -358,8 +390,7 @@ button {
 .toDateCheckBox:checked {
   border: 1px #009595 solid;
 }
-
-.toDateCheckBox::before {
+.toDateCheckBox::before{
   content: 'Current';
   position: absolute;
   top: 50%;
@@ -386,10 +417,11 @@ button {
 }
 .date_input label {
   font-size: 13px;
-  color: #aaa;
+  color: #757575;
 }
 
 /* calendar */
+
 .calendar_con {
   width: 500px;
   margin: 0 auto;
@@ -484,4 +516,51 @@ button {
 }
 .allowed_months li:nth-child(odd) {
   background: #eee;
+}
+
+/* post events */
+/* .event_input with .profile_input */
+.aside_btn_input input[type=text] {
+  width: 80%;
+} 
+.aside_btn_input input[type=checkbox] {
+  position: relative;
+  width: 70px;
+  height: 40px;
+  -webkit-appearance: none;
+  outline: none;
+  border-bottom: 10px;
+  border: 1px #ccc solid;
+  border-radius: 10px;
+  cursor: pointer; 
+  left: 5px;
+  top: 15px;
+}
+.aside_btn_input input[type=checkbox]::before {
+  content: 'You';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  color: #757575;
+  font-weight: bold;
+}
+.aside_btn_input input[type=checkbox]:checked {
+  border: 1px #009595 solid;
+}
+.aside_btn_input input[type=checkbox]:checked::before {
+  color: #009595;
+}
+.aside_btn_input button {
+  border-radius: 10px;
+  border: 1px #ccc solid;
+  padding: 8px 7px;
+  margin: 0 3px;
+  color: #757575;
+  background: white;
+  font-weight: bolder;
+}
+.aside_btn_input button:active {
+  border: 1px #009595 solid;
+  color: #009595;
 }

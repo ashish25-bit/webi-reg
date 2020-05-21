@@ -7,6 +7,7 @@ import Header from './components/layout/Header'
 import Profile from './components/docs/Profile'
 import Home from './components/docs/Home'
 import Search from './components/docs/Search'
+import Post from './components/docs/Post'
 import CreateProfile from './components/themes/CreateProfile'
 import EditProfile from './components/themes/EditProfile'
 import AddExperience from './components/themes/AddExperience'
@@ -34,6 +35,7 @@ const App = () => {
             <Route exact path='/' component={Signup} />
             <Route exact path='/login' component={Login} />
             <PrivateRoute exact path='/event' component={Home} />
+            <PrivateRoute exact path='/post/event' component={Post} />
             <PrivateRoute exact path='/profile' component={Profile} />
             <PrivateRoute exact path='/search' component={Search} />
             <PrivateRoute exact path='/settings/profile/setup' component={CreateProfile} />

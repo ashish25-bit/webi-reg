@@ -30,7 +30,8 @@ const EventSchema = new Schema({
         type: Date,
         default: Date.now()
     },
-    attendee: []
+    attendee: [],
+    tags: []
 })
 
 module.exports = Event = mongoose.model('event', EventSchema)

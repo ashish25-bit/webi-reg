@@ -28,7 +28,8 @@ router.post('/',
                 mail: req.body.mail,
                 description: req.body.description,
                 date: req.body.date,
-                postedBy: req.user.id
+                postedBy: req.user.id,
+                tags: req.body.tags
             })
             const event = await newEvent.save()
             res.json(event)
