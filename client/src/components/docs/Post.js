@@ -2,14 +2,16 @@ import React, { useState, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import uuid from 'react-uuid'
+import { postEvent } from '../../job/event'
+import Alert from '../layout/Alert'
 
-const Post = ({ auth: { user } }) => {
+const Post = ({postEvent, auth: { user } }) => {
 
     const [formData, setFormData] = useState({
-        name: '',
+        name: 'Webinar',
         host: '',
         mail: '',
-        description: '',
+        description: 'Just A Webinar',
         date: '',
         tag: ''
     })
@@ -29,19 +31,29 @@ const Post = ({ auth: { user } }) => {
 
     const changeHandler = e => setFormData({...formData, [e.target.name] : e.target.value})
 
-    const postEvent = e => {
+    const eventPost = e => {
         e.preventDefault()
         const sendData = { name, host, mail, description, date, tags }
-        console.log(sendData)
+        postEvent(sendData)
+        setFormData({
+            ...formData,
+            name: '',
+            host: '',
+            mail: '',
+            description: '',
+            date: '',
+            tag: ''
+        })
+        setTags([])
     }
 
     return (
         <div className='container_logged'>
-            <form method='POST' onSubmit={e => postEvent(e)} className='profile_form' >
+            <form method='POST' onSubmit={e => eventPost(e)} className='profile_form' >
                 <h3>Post Event Details</h3>
                 {/* name */}
                 <div className='event_input'>
-                    <label>Name</label>
+                    <label>Event Name</label>
                     <input
                         type='text'
                         name='name'
@@ -128,7 +140,7 @@ const Post = ({ auth: { user } }) => {
                                     id: uuid(),
                                     tag
                                 }
-                                setTags(tags => [...tags, tt])
+                                tag && setTags(tags => [...tags, tt])
                                 setFormData({...formData, tag: ''})
                             }}
                         >Add Tag</button>
@@ -159,17 +171,20 @@ const Post = ({ auth: { user } }) => {
                 <div className='post_event_btn'>
                     <button type='submit'>Post Event Details</button>
                 </div>
+                {/* alert */}
+                <div className="alert-profile"><Alert/></div>
             </form>
         </div>
     )
 }
 
 Post.propTypes = {
-    auth: PropTypes.object.isRequired
+    auth: PropTypes.object.isRequired,
+    postEvent: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
     auth: state.auth
 })
 
-export default connect(mapStateToProps, {})(Post)
+export default connect(mapStateToProps, { postEvent })(Post)

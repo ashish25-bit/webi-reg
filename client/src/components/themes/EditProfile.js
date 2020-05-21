@@ -210,7 +210,7 @@ const EditProfile = ({profile: { profile, loading }, createProfile, getCurrentPr
                     <Link to='/profile'>Go Back</Link>
                 </div>
 
-                <div className="alert-profile"><Alert/></div>
+                <div className="alert-profile"><Alert /></div>
             </form>
         </div>
     )
