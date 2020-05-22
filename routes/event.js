@@ -74,26 +74,38 @@ router.get('/id/:id', auth, async (req, res) => {
 })
 
 // register for an event
-router.put('/resgister/:id', auth, async (req, res) => {
-    const event = await Event.findById(req.params.id)
+router.put('/register', auth, async (req, res) => {
+    const event = await Event.findById(req.body.id)
     const user = await User.findById(req.user.id)
     // register the user if not present in the attendee list
     if (!event.attendee.includes(req.user.id)) {
-        event.attendee.push(req.user.id)
-        await event.save()
-        user.events.push(req.params.id)
-        await user.save()
-        res.send('You have registered for this webinar..')
+        try {
+            event.attendee.push(req.user.id)
+            await event.save()
+            user.events.push(req.body.id)
+            const updatedUser = await user.save()
+            res.json(updatedUser)
+        } 
+        catch (err) {
+            console.log(err.message)
+            res.json({error: 'Unable to register'})
+        }
     }
     // if already resgistered remove from the attendee list
     else {
-        index = event.attendee.indexOf(req.user.id)
-        event.attendee.splice(index, 1)
-        await event.save()
-        index = user.events.indexOf(req.params.id)
-        user.events.splice(index, 1)
-        await user.save()
-        res.send('You have successfully de-registered from this webinar..')
+        try {
+            index = event.attendee.indexOf(req.user.id)
+            event.attendee.splice(index, 1)
+            await event.save()
+            index = user.events.indexOf(req.params.id)
+            user.events.splice(index, 1)
+            const updatedUser = await user.save()
+            res.json(updatedUser)
+        } 
+        catch (err) {
+            console.log(err.message)
+            res.json({error: 'Unable to de-register'})
+        }
     }
 })
 

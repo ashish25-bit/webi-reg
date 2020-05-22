@@ -24,7 +24,11 @@ export const postEvent = (formData) => async dispatch => {
     }
 }
 
-//  Search for events
-// export const searchEvent = (key, type) => async dispatch => {
-    
-// } 
+// register for an event
+export const register = (data) => dispatch => {
+    console.log(data)
+    dispatch({
+        type: USER_LOADED,
+        payload: data
+    })
+}

@@ -619,40 +619,6 @@ button {
 .search_option input[type=checkbox]:checked::before {
   color: #009595;
 }
-/* .input_type {
-  display: flex;
-  flex-direction: column;
-  margin: 20px 0;
-}
-.input_type label {
-  font-size: 14px;
-  color: #009595;
-  font-weight: bolder;
-  margin-left: 10px;
-}
-.input_type input {
-  padding: 5px 10px ;
-  border: 1px #ccc solid ;
-  border-radius: 15px;
-  transition: 0.3s ease border;
-}
-.input_type input:focus {
-  border: 1px #009595 solid ;
-}
-.input_type button {
-  margin: 10px;
-  border: 1.5px #009595 solid;
-  background: white;
-  padding: 4px 0;
-  letter-spacing: 2px;
-  font-weight: bolder;
-  color: #009595;
-  border-radius: 20px;
-}
-.input_type button:hover {
-  color: white;
-  background: #009595;
-} */
 .input_type {
   text-align: left;
   width: 100%;
@@ -712,6 +678,7 @@ button {
   font-weight: bolder;
   background: #5a5a5ae6;
   padding: 5px 3px;
+  margin: 0 3px;
 }
 .mail-event, .des-event{
   font-size: 14px;
@@ -734,4 +701,25 @@ button {
 .event button:hover {
   background: #009595;
   color: white;
+}
+.your_posts_con {
+  width: 500px;
+  margin: 10px auto;
+}
+.your-post {
+  padding: 20px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.3);
+  margin: 5px 0;
+  border-radius: 10px;
+}
+.your-post a, .your-post button {
+  margin-right: 15px;
+  padding: 5px 8px;
+  background: #247f54;  
+  color: white;
+  font-size: 14px;
+}
+.your-post button {
+  background: #b52929;
+  border: none;
 }

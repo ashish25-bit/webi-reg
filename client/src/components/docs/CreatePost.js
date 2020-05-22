@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import { postEvent } from '../../job/event'
 import Alert from '../layout/Alert'
 
-const Post = ({postEvent, auth: { user } }) => {
+const CreatePost = ({postEvent, auth: { user } }) => {
 
     const [formData, setFormData] = useState({
         name: 'Webinar',
@@ -180,7 +180,7 @@ const Post = ({postEvent, auth: { user } }) => {
     )
 }
 
-Post.propTypes = {
+CreatePost.propTypes = {
     auth: PropTypes.object.isRequired,
     postEvent: PropTypes.func.isRequired
 }
@@ -189,4 +189,4 @@ const mapStateToProps = state => ({
     auth: state.auth
 })
 
-export default connect(mapStateToProps, { postEvent })(Post)
+export default connect(mapStateToProps, { postEvent })(CreatePost)

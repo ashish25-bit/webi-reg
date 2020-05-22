@@ -14,7 +14,7 @@ const Profile = ({ getCurrentProfile, auth: { user }, profile: { profile ,loadin
     useEffect(() => {document.title = 'Dashboard - WebiReg'},[])
 
     // 
-    useEffect(() => { getCurrentProfile() }, [])
+    useEffect(() => { getCurrentProfile() }, [getCurrentProfile])
 
     return loading && profile === null ? (
         <Spinner/>

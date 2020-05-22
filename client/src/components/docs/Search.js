@@ -4,8 +4,9 @@ import { connect } from 'react-redux'
 import axios from 'axios'
 import uuid from 'react-uuid'
 import Moment from 'react-moment'
+import { register } from '../../job/event'
 
-const Search = ({ auth: { user } }) => {
+const Search = ({ auth: { user }, register }) => {
 
     const [nameCheckbox, chooseName] = useState(true)
     const [dateCheckbox, chooseDate] = useState(false)
@@ -17,25 +18,37 @@ const Search = ({ auth: { user } }) => {
         e.preventDefault()
         if (key !== '') {
             setLoading(true)
-            try {
-                const config = {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json'
                 }
-                const data = { key: key.trim(), type, id: user._id }
-                axios.post('/api/event/find', data, config)
-                    .then(res => {
-                        setLoading(false)
-                        res.data.msg ? setResult({ ...result, events: [], errors: res.data.msg }) :
-                            setResult({ ...setResult, events: res.data, errors: '' })
-                    })
-
             }
-            catch (err) {
-                console.log(err)
+            const data = { key: key.trim(), type, id: user._id }
+            axios.post('/api/event/find', data, config)
+                .then(res => {
+                    setLoading(false)
+                    res.data.msg ? setResult({ ...result, events: [], errors: res.data.msg }) :
+                        setResult({ ...setResult, events: res.data, errors: '' })
+                })
+                .catch(err => console.log(err))
+        }
+    }
+
+    // register or de-register from an event
+    const dRegister = e => {
+        e.preventDefault()
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
             }
         }
+        const data = {id: e.target.id}
+        axios.put('/api/event/register', data, config)
+            .then(res => {
+                console.log(res.data)
+                register(res.data)
+            })
+            .catch(err => console.log(err))
     }
 
     const { events, errors } = result
@@ -148,7 +161,12 @@ const Search = ({ auth: { user } }) => {
                                             <p className='posted-on-event'>Posted On - {' '}
                                                 <Moment format='MMM D, YYYY'>{event.postedOn}</Moment>
                                             </p>
-                                            <button type='button' id={event._id} >Register</button>
+                                            <button 
+                                                type='button' 
+                                                id={event._id}
+                                                onClick={e => dRegister(e)} >
+                                                {user.events.includes(event._id) ? 'De-register' : 'Register'}
+                                            </button>
                                         </div>
                                     ))
                                 }
@@ -164,11 +182,12 @@ const Search = ({ auth: { user } }) => {
 }
 
 Search.propTypes = {
-    auth: PropTypes.object.isRequired
+    auth: PropTypes.object.isRequired,
+    register: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
     auth: state.auth
 })
 
-export default connect(mapStateToProps, {})(Search)
+export default connect(mapStateToProps, { register })(Search)
