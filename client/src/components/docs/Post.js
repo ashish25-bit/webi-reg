@@ -2,6 +2,7 @@ import React, { useState, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import uuid from 'react-uuid'
+import { Link } from 'react-router-dom'
 import { postEvent } from '../../job/event'
 import Alert from '../layout/Alert'
 
@@ -174,6 +175,7 @@ const Post = ({postEvent, auth: { user } }) => {
                 {/* alert */}
                 <div className="alert-profile"><Alert/></div>
             </form>
+            <Link to='/event/posted'>See Posted Events</Link>
         </div>
     )
 }

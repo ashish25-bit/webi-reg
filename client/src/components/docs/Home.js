@@ -2,6 +2,7 @@ import React, { useState, useEffect, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import uuid from 'react-uuid'
+import { Link } from 'react-router-dom'
 
 const Home = ({ auth: { user } }) => {
 
@@ -145,6 +146,11 @@ const Home = ({ auth: { user } }) => {
                 </div>
                 
             </div>
+            <div className='other-links'>
+                <Link to='/event/posted'>Webinars You Posted</Link>{' | '}
+                <Link to='/event'>Webinars You Registered for</Link>
+            </div>
+            
         </div>
     )
 }

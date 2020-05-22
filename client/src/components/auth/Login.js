@@ -24,7 +24,7 @@ const Login = ({ login, isAuthenticated }) => {
 
     // redirect if logged in
     if(isAuthenticated)
-        return <Redirect to='/post/event' />
+        return <Redirect to='/event' />
 
     return (
         <Fragment>

@@ -21,8 +21,8 @@ const Header = ({ auth: { isAuthenticated, loading }, logout }) => {
             <div className='header_con'>
                 <Link className='logo' to='/event'>WR</Link>
                 <Link className='nav_link' to='/event'>Home</Link>
-                <Link className='nav_link' to='/post/event'>Post Event</Link>
-                <Link className='nav_link' to='/search'>Search</Link>
+                <Link className='nav_link' to='/event/post'>Post Event</Link>
+                <Link className='nav_link' to='/event/search'>Search</Link>
                 <Link className='nav_link' to='/profile'>Profile</Link>
                 <a className='nav_link' href='/login' onClick={logout}>Logout</a>
             </div>

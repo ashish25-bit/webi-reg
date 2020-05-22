@@ -21,7 +21,8 @@ const UserSchema = new mongoose.Schema({
         type: Date,
         default: Date.now()
     },
-    events: []
+    events: [],
+    posted: []
 })
 
 module.exports = User = mongoose.model('user', UserSchema)

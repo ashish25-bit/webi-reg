@@ -12,6 +12,7 @@ import CreateProfile from './components/themes/CreateProfile'
 import EditProfile from './components/themes/EditProfile'
 import AddExperience from './components/themes/AddExperience'
 import AddEducation from './components/themes/AddEducation'
+import Posted from './components/docs/Posted'
 import PrivateRoute from './components/routes/PrivateRoute'
 // redux
 import { Provider } from 'react-redux'
@@ -35,11 +36,12 @@ const App = () => {
             <Route exact path='/' component={Signup} />
             <Route exact path='/login' component={Login} />
             <PrivateRoute exact path='/event' component={Home} />
-            <PrivateRoute exact path='/post/event' component={Post} />
+            <PrivateRoute exact path='/event/post' component={Post} />
             <PrivateRoute exact path='/profile' component={Profile} />
-            <PrivateRoute exact path='/search' component={Search} />
+            <PrivateRoute exact path='/event/search' component={Search} />
             <PrivateRoute exact path='/settings/profile/setup' component={CreateProfile} />
             <PrivateRoute exact path='/settings/profile/edit' component={EditProfile} />
+            <PrivateRoute exact path='/event/posted' component={Posted} />
             <PrivateRoute exact path='/settings/profile/experience' component={AddExperience} />
             <PrivateRoute exact path='/settings/profile/education' component={AddEducation} />
           </Switch>

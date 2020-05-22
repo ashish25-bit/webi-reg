@@ -32,10 +32,14 @@ router.post('/',
                 tags: req.body.tags
             })
             const event = await newEvent.save()
-            res.json(event)
+            const user = await User.findById(req.user.id)
+            const posted = { name: event.name, id: event.id }
+            user.posted.unshift(posted)
+            const updatedUser = await user.save()
+            res.json(updatedUser)
         }
         catch (err) {
-            console.log(err.message)
+            console.log(err)
             res.status(500).send('Server error')
         }
 
@@ -48,13 +52,13 @@ router.get('/', async (req, res) => {
         res.json(events)
     }
     catch (err) {
-        console.error(err.message)
+        console.error(err)
         res.status(500).send('Server error')
     }
 })
 
 // get the event detail of a particular event
-router.get('/:id', async (req, res) => {
+router.get('/id/:id', auth, async (req, res) => {
     try {
         const event = await Event.findById(req.params.id)
         if (!event)
@@ -84,13 +88,27 @@ router.put('/resgister/:id', auth, async (req, res) => {
     // if already resgistered remove from the attendee list
     else {
         index = event.attendee.indexOf(req.user.id)
-        event.attendee.splice(index,1)
+        event.attendee.splice(index, 1)
         await event.save()
         index = user.events.indexOf(req.params.id)
-        user.events.splice(index,1)
+        user.events.splice(index, 1)
         await user.save()
         res.send('You have successfully de-registered from this webinar..')
     }
+})
+
+// search for events
+router.post('/find', auth, async (req, res) => {
+    const { key, type, id } = req.body
+    try {
+        const events = await Event.find({ postedBy : { $not: { $eq: id } } }).where(type).equals(key)
+        res.json(events.length ? events : {msg : `Found Nothing for the keyword '${key}'`})
+    } 
+    catch (err) {
+        console.log(err.message)
+        res.json({msg: `Server Error`})
+    }
+    
 })
 
 module.exports = router

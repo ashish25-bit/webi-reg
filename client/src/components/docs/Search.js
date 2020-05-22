@@ -1,12 +1,164 @@
-import React from 'react'
+import React, { useState, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import axios from 'axios'
+import uuid from 'react-uuid'
+import Moment from 'react-moment'
 
 const Search = ({ auth: { user } }) => {
 
+    const [nameCheckbox, chooseName] = useState(true)
+    const [dateCheckbox, chooseDate] = useState(false)
+    const [loading, setLoading] = useState(false)
+    const [formData, setFormData] = useState({ key: 'Ashish Webinar 1', type: 'name' })
+    const [result, setResult] = useState({ events: [], errors: '' })
+
+    const onSubmit = e => {
+        e.preventDefault()
+        if (key !== '') {
+            setLoading(true)
+            try {
+                const config = {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }
+                const data = { key: key.trim(), type, id: user._id }
+                axios.post('/api/event/find', data, config)
+                    .then(res => {
+                        setLoading(false)
+                        res.data.msg ? setResult({ ...result, events: [], errors: res.data.msg }) :
+                            setResult({ ...setResult, events: res.data, errors: '' })
+                    })
+
+            }
+            catch (err) {
+                console.log(err)
+            }
+        }
+    }
+
+    const { events, errors } = result
+
+    const { key, type } = formData
+
     return (
         <div className='container_logged'>
-            <h3>Search { user && user.name }</h3> 
+            <form method='POST' className='search_event_form' onSubmit={e => onSubmit(e)}>
+                <div className='search_option'>
+                    <input
+                        type='checkbox'
+                        name='name-checkbox'
+                        checked={nameCheckbox}
+                        onChange={() => {
+                            chooseName(true)
+                            chooseDate(false)
+                            setFormData({ ...formData, key: '', type: 'name' })
+                        }}
+                    />
+                    <input
+                        type='checkbox'
+                        name='date-checkbox'
+                        checked={dateCheckbox}
+                        onChange={() => {
+                            chooseDate(true)
+                            chooseName(false)
+                            setFormData({ ...formData, key: '', type: 'date' })
+                        }}
+                    />
+                </div>
+                <table className='input_type'>
+                    {
+                        nameCheckbox ?
+
+                            // search input
+                            <Fragment>
+                                <thead>
+                                    <tr><th colSpan='2'>Enter Name</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <input
+                                                type='text'
+                                                name='name'
+                                                autoComplete='off'
+                                                value={key}
+                                                onChange={e => setFormData({ ...formData, key: e.target.value })}
+                                            />
+                                        </td>
+                                        <td>
+                                            <button type='submit'>Search</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </Fragment> :
+
+                            // date input
+                            <Fragment>
+                                <thead>
+                                    <tr><th>Enter Date</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <input
+                                                type='date'
+                                                value={key}
+                                                onChange={e => setFormData({ ...formData, key: e.target.value })}
+                                            />
+                                        </td>
+                                        <td>
+                                            <button type='submit'>Search</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </Fragment>
+                    }
+                </table>
+            </form>
+            {/* events */}
+            <div className='events_con'>
+                <h3 style={{ textAlign: 'center' }}>
+                    {
+                        loading && <Fragment>Searching for key: {key}</Fragment>
+                    }
+                </h3>
+
+                <div className='events_con'>
+                    {
+                        events.length ?
+                            <Fragment>
+                                {
+                                    events.map(event => (
+                                        <div key={uuid()} className='event'>
+                                            <h4>{event.name}</h4>
+                                            <p className='hosted-by'>Hosted By - {event.host} on {' '}
+                                                <Moment format='MMM D, YYYY'>{event.date}</Moment>
+                                            </p>
+                                            <p className='mail-event'>Email : {event.mail}</p>
+                                            <p className='des-event'>{event.description}</p>
+                                            {
+                                                event.tags.length && <div className='event-tag-con'>
+                                                    {
+                                                        event.tags.map(tag => <span key={tag.id}>{tag.tag}</span>)
+                                                    }
+                                                </div>
+                                            }
+                                            <p className='posted-on-event'>Posted On - {' '}
+                                                <Moment format='MMM D, YYYY'>{event.postedOn}</Moment>
+                                            </p>
+                                            <button type='button' id={event._id} >Register</button>
+                                        </div>
+                                    ))
+                                }
+                            </Fragment> :
+                            <div className='no-event'>{errors}</div>
+                    }
+
+                </div>
+
+            </div>
         </div>
     )
 }
@@ -19,4 +171,4 @@ const mapStateToProps = state => ({
     auth: state.auth
 })
 
-export default connect(mapStateToProps , {})(Search)
+export default connect(mapStateToProps, {})(Search)

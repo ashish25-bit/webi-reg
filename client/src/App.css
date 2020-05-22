@@ -517,9 +517,21 @@ button {
 .allowed_months li:nth-child(odd) {
   background: #eee;
 }
-
+.allowed_months li:nth-child(even) {
+  background: #fff;
+}
 /* post events */
 /* .event_input with .profile_input */
+.other-links {
+  text-align: center;
+  margin: 15px 0;
+}
+.other-links a {
+  margin: 0 10px;
+  padding: 5px 8px;
+  text-decoration: underline;
+  color: #000;
+}
 .aside_btn_input input[type=text] {
   width: 80%;
 } 
@@ -563,4 +575,163 @@ button {
 .aside_btn_input button:active {
   border: 1px #009595 solid;
   color: #009595;
+}
+
+/* search events */
+
+.search_option {
+  text-align: center;
+}
+.search_option input[type=checkbox] {
+  position: relative;
+  width: 150px;
+  height: 40px;
+  -webkit-appearance: none;
+  outline: none;
+  border-bottom: 10px;
+  border: 1px #ccc solid;
+  border-radius: 10px;
+  cursor: pointer; 
+  margin: 0 10px;
+}
+.search_option input[type=checkbox]:checked {
+  border: 1px #009595 solid;
+}
+.search_event_form {
+  width: 500px;
+  margin: 0 auto;
+}
+.search_option input[type=checkbox]::before {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #757575;
+  font-weight: bold;
+}
+.search_option input[name='name-checkbox']::before {
+  content: 'Search By Name';
+  left: 20px;
+}
+.search_option input[name='date-checkbox']::before {
+  content: 'Search By Date';
+  left: 25px;
+}
+.search_option input[type=checkbox]:checked::before {
+  color: #009595;
+}
+/* .input_type {
+  display: flex;
+  flex-direction: column;
+  margin: 20px 0;
+}
+.input_type label {
+  font-size: 14px;
+  color: #009595;
+  font-weight: bolder;
+  margin-left: 10px;
+}
+.input_type input {
+  padding: 5px 10px ;
+  border: 1px #ccc solid ;
+  border-radius: 15px;
+  transition: 0.3s ease border;
+}
+.input_type input:focus {
+  border: 1px #009595 solid ;
+}
+.input_type button {
+  margin: 10px;
+  border: 1.5px #009595 solid;
+  background: white;
+  padding: 4px 0;
+  letter-spacing: 2px;
+  font-weight: bolder;
+  color: #009595;
+  border-radius: 20px;
+}
+.input_type button:hover {
+  color: white;
+  background: #009595;
+} */
+.input_type {
+  text-align: left;
+  width: 100%;
+  padding: 10px;
+}
+.input_type thead tr th {
+  font-size: 13px;
+  color: #009595;
+  padding-left: 10px;
+}
+.input_type tbody tr td {
+  width: 100%;
+}
+.input_type tbody tr td input {
+  width: 90%;
+  padding: 5px 10px;
+  border-radius: 20px;
+  border: 1px #ccc solid;
+  transition: 0.3s ease border;
+}
+.input_type tbody tr td input:focus {
+  border: 1px #009595 solid;
+}
+.input_type tbody tr td button {
+  padding: 5px 15px;
+  border: none;
+  border-radius: 20px;
+  letter-spacing: 1.5px;
+  color: white;
+  background: #009595;
+  font-weight: bolder;
+}
+.events_con {
+  width: 600px;
+  margin: 20px auto;
+}
+.event {
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.3);
+  margin: 5px 0;
+  user-select: none;
+}
+.event h4 {
+  font-size: 30px;
+}
+.posted-on-event {
+  font-size: 12px;
+  color: #757575;
+}
+.event-tag-con {
+  margin: 6px 0;
+}
+.event-tag-con span {
+  font-size: 12px;
+  color: #fff;
+  font-weight: bolder;
+  background: #5a5a5ae6;
+  padding: 5px 3px;
+}
+.mail-event, .des-event{
+  font-size: 14px;
+  color: #757575;
+}
+.no-event {
+  text-align: center;
+  font-weight: bolder;
+}
+.event button {
+  margin: 5px 0;
+  padding: 5px 10px;
+  border: 1.5px #009595 solid;
+  color: #009595;
+  font-weight: bolder;
+  background: white;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+.event button:hover {
+  background: #009595;
+  color: white;
 }
