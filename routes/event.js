@@ -85,10 +85,10 @@ router.put('/register', auth, async (req, res) => {
             user.events.push(req.body.id)
             const updatedUser = await user.save()
             res.json(updatedUser)
-        } 
+        }
         catch (err) {
             console.log(err.message)
-            res.json({error: 'Unable to register'})
+            res.json({ error: 'Unable to register' })
         }
     }
     // if already resgistered remove from the attendee list
@@ -101,10 +101,10 @@ router.put('/register', auth, async (req, res) => {
             user.events.splice(index, 1)
             const updatedUser = await user.save()
             res.json(updatedUser)
-        } 
+        }
         catch (err) {
             console.log(err.message)
-            res.json({error: 'Unable to de-register'})
+            res.json({ error: 'Unable to de-register' })
         }
     }
 })
@@ -113,14 +113,38 @@ router.put('/register', auth, async (req, res) => {
 router.post('/find', auth, async (req, res) => {
     const { key, type, id } = req.body
     try {
-        const events = await Event.find({ postedBy : { $not: { $eq: id } } }).where(type).equals(key)
-        res.json(events.length ? events : {msg : `Found Nothing for the keyword '${key}'`})
-    } 
+        const events = await Event.find({ postedBy: { $not: { $eq: id } } }).where(type).equals(key)
+        res.json(events.length ? events : { msg: `Found Nothing for the keyword '${key}'` })
+    }
     catch (err) {
         console.log(err.message)
-        res.json({msg: `Server Error`})
+        res.json({ msg: `Server Error` })
     }
-    
+})
+
+// find details of all the events in which the user has registered
+router.post('/registered', auth, async (req, res) => {
+    try {
+        const details = await Event.find({}).where('_id').in(req.body.id)
+        res.json(details)
+    }
+    catch (err) {
+        console.log(err)
+        res.json({ error: err.message })
+    }
+})
+
+// get the events for a particular day - the events for which you have registered
+router.post('/date', auth, async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id)
+        const events = await Event.find({ date: req.body.date }).where('_id').in(user.events)
+        res.json(events.length ? events : {msg: 'No Webinars Today'})
+    }
+    catch (err) {
+        console.log(err)
+        res.json({ msg: err.message })
+    }
 })
 
 module.exports = router

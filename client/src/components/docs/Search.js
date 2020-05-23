@@ -8,11 +8,12 @@ import { register } from '../../job/event'
 
 const Search = ({ auth: { user }, register }) => {
 
-    const [nameCheckbox, chooseName] = useState(true)
-    const [dateCheckbox, chooseDate] = useState(false)
-    const [loading, setLoading] = useState(false)
-    const [formData, setFormData] = useState({ key: 'Ashish Webinar 1', type: 'name' })
-    const [result, setResult] = useState({ events: [], errors: '' })
+    const [nameCheckbox, chooseName] = useState(true) // when input type is name
+    const [dateCheckbox, chooseDate] = useState(false) // when input type is date
+    const [loading, setLoading] = useState(false) // lazy-loading when searchinf for events
+    const [formData, setFormData] = useState({ key: 'Ashish Webinar 1', type: 'name' }) 
+    const [result, setResult] = useState({ events: [], errors: '' }) // results accquired
+    const [ engaged, setEngaged ] = useState(false) // while registering or de-registering
 
     const onSubmit = e => {
         e.preventDefault()
@@ -37,6 +38,7 @@ const Search = ({ auth: { user }, register }) => {
     // register or de-register from an event
     const dRegister = e => {
         e.preventDefault()
+        setEngaged(true)
         const config = {
             headers: {
                 'Content-Type': 'application/json'
@@ -45,6 +47,7 @@ const Search = ({ auth: { user }, register }) => {
         const data = {id: e.target.id}
         axios.put('/api/event/register', data, config)
             .then(res => {
+                setEngaged(false)
                 console.log(res.data)
                 register(res.data)
             })
@@ -141,37 +144,38 @@ const Search = ({ auth: { user }, register }) => {
                 <div className='events_con'>
                     {
                         events.length ?
-                            <Fragment>
-                                {
-                                    events.map(event => (
-                                        <div key={uuid()} className='event'>
-                                            <h4>{event.name}</h4>
-                                            <p className='hosted-by'>Hosted By - {event.host} on {' '}
-                                                <Moment format='MMM D, YYYY'>{event.date}</Moment>
-                                            </p>
-                                            <p className='mail-event'>Email : {event.mail}</p>
-                                            <p className='des-event'>{event.description}</p>
-                                            {
-                                                event.tags.length && <div className='event-tag-con'>
-                                                    {
-                                                        event.tags.map(tag => <span key={tag.id}>{tag.tag}</span>)
-                                                    }
-                                                </div>
-                                            }
-                                            <p className='posted-on-event'>Posted On - {' '}
-                                                <Moment format='MMM D, YYYY'>{event.postedOn}</Moment>
-                                            </p>
-                                            <button 
-                                                type='button' 
-                                                id={event._id}
-                                                onClick={e => dRegister(e)} >
-                                                {user.events.includes(event._id) ? 'De-register' : 'Register'}
-                                            </button>
-                                        </div>
-                                    ))
-                                }
-                            </Fragment> :
-                            <div className='no-event'>{errors}</div>
+                        <Fragment>
+                            {
+                                events.map(event => (
+                                    <div key={uuid()} className='event'>
+                                        <h4>{event.name}</h4>
+                                        <p className='hosted-by'>Hosted By - {event.host} on {' '}
+                                            <Moment format='MMM D, YYYY'>{event.date}</Moment>
+                                        </p>
+                                        <p className='mail-event'>Email : {event.mail}</p>
+                                        <p className='des-event'>{event.description}</p>
+                                        {
+                                            event.tags.length && <div className='event-tag-con'>
+                                                {
+                                                    event.tags.map(tag => <span key={tag.id}>{tag.tag}</span>)
+                                                }
+                                            </div>
+                                        }
+                                        <p className='posted-on-event'>Posted On - {' '}
+                                            <Moment format='MMM D, YYYY'>{event.postedOn}</Moment>
+                                        </p>
+                                        <button 
+                                            type='button' 
+                                            id={event._id}
+                                            disabled={engaged}
+                                            onClick={e => dRegister(e)} >
+                                            {user.events.includes(event._id) ? 'De-register' : 'Register'}
+                                        </button>
+                                    </div>
+                                ))
+                            }
+                        </Fragment> :
+                        <div className='no-event'>{errors}</div>
                     }
 
                 </div>

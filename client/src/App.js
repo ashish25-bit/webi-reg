@@ -14,6 +14,7 @@ import AddExperience from './components/themes/AddExperience'
 import AddEducation from './components/themes/AddEducation'
 import Posted from './components/docs/Posted'
 import YourPost from './components/docs/YourPost'
+import Registered from './components/docs/Registered'
 import PrivateRoute from './components/routes/PrivateRoute'
 // redux
 import { Provider } from 'react-redux'
@@ -40,6 +41,7 @@ const App = () => {
             <PrivateRoute exact path='/event/post' component={CreatePost} />
             <PrivateRoute exact path='/profile' component={Profile} />
             <PrivateRoute exact path='/event/search' component={Search} />
+            <PrivateRoute exact path='/event/registered' component={Registered} />
             <PrivateRoute exact path='/settings/profile/setup' component={CreateProfile} />
             <PrivateRoute exact path='/settings/profile/edit' component={EditProfile} />
             <PrivateRoute exact path='/event/posted' component={Posted} />

@@ -1,10 +1,10 @@
 import React, { useState, useEffect, Fragment } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
 import uuid from 'react-uuid'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
+import Moment from 'react-moment'
 
-const Home = ({ auth: { user } }) => {
+const Home = () => {
 
     const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
     const monthShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
@@ -13,13 +13,46 @@ const Home = ({ auth: { user } }) => {
     const todayDate = date.getDate()
     let filterMonths = monthShort.filter((mon, index) => index >= date.getMonth())
 
-    const [ selectedYear, setSelectedYear ] = useState(date.getFullYear())
-    const [ selectedMonth, setSelectedMonth ] = useState(monthShort[date.getMonth()])
-    const [ allowedMonths, setAllowedMonths ] = useState(filterMonths)
-    const [ showMonths, toggleShowMonths ] = useState(false)
+    // this will contain the current date selected
+    const [selectedDate, setDate] = useState(date.getDate())
+    // this will contain the current year selected 
+    const [selectedYear, setSelectedYear] = useState(date.getFullYear())
+    // this will contain the months selected
+    const [selectedMonth, setSelectedMonth] = useState(monthShort[date.getMonth()])
+    // this will contain the months which is allowed for a particular year
+    const [allowedMonths, setAllowedMonths] = useState(filterMonths)
+    // this is for showing the allowed month list 
+    const [showMonths, toggleShowMonths] = useState(false)
+    // this will contain the result obtain for the selected date
+    const [result, setResult] = useState({ events: [], msg: '', searchedDate: '' })
+    // this will contain the whether the information is fetched or not
+    const [loading, setLoading] = useState(false)
 
+    // for getting the events user has registered for a particular date
     useEffect(() => {
-        let days = getNumberOfDays()        
+        setLoading(true)
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        var d = new Date()
+        d.setFullYear(selectedYear, monthShort.indexOf(selectedMonth), selectedDate)
+        const sendDate = d.toLocaleDateString().split('/').reverse().join('-')
+
+        axios.post('/api/event/date', { date: sendDate }, config)
+            .then(res => {
+                !res.data.msg ?
+                    setResult({ ...result, events: res.data, msg: '', searchedDate: sendDate }) :
+                    setResult({ ...result, events: [], msg: res.data.msg, searchedDate: sendDate })
+                setLoading(false)
+            })
+            .catch(err => setResult({ ...result, events: [], msg: err }))
+    }, [selectedDate])
+
+    // for displaying the calendar
+    useEffect(() => {
+        let days = getNumberOfDays()
         setAllowedMonths(selectedYear === date.getFullYear() ? filterMonths : monthShort)
         // this will contain the day of the 1st date
         const first = new Date(selectedYear, monthShort.indexOf(selectedMonth), 1).getDay()
@@ -77,7 +110,7 @@ const Home = ({ auth: { user } }) => {
                 date.classList.add('date')
                 date.addEventListener('click', getEvents)
             }
-                
+
             else {
                 date.classList.add(i >= todayDate ? 'date' : 'pastDate')
                 if (i === todayDate)
@@ -90,8 +123,10 @@ const Home = ({ auth: { user } }) => {
 
     // event listener for the dates
     const getEvents = e => {
-        console.log(e.target.innerText)
+        setDate(parseInt(e.target.innerText))
     }
+
+    const { events, msg, searchedDate } = result
 
     return (
         <div className='container_logged'>
@@ -104,16 +139,16 @@ const Home = ({ auth: { user } }) => {
                     {/* for months */}
                     <span>
                         <span className='selected_mon'>{selectedMonth}</span>
-                        <button 
-                            className='mon_down' 
+                        <button
+                            className='mon_down'
                             onClick={() => toggleShowMonths(!showMonths)} >
-                                <i className="fa fa-caret-down" aria-hidden="true"></i>
+                            <i className="fa fa-caret-down" aria-hidden="true"></i>
                         </button>
                         {
                             showMonths && <Fragment>
                                 <ul className='allowed_months'> {
                                     allowedMonths.map(mon => (
-                                        <li 
+                                        <li
                                             key={uuid()}
                                             onClick={e => {
                                                 setSelectedMonth(e.target.innerText)
@@ -128,39 +163,70 @@ const Home = ({ auth: { user } }) => {
                     </span>
                     {/* for year */}
                     <span>
-                        <button 
+                        <button
                             className='prev'
                             onClick={() => setSelectedYear(prevState => prevState - 1)}
                             disabled={selectedYear === date.getFullYear()} >
-                                <i className="fa fa-caret-left" aria-hidden="true"></i>
+                            <i className="fa fa-caret-left" aria-hidden="true"></i>
                         </button>
 
                         <span className='selected_year'>{selectedYear}</span>
-                        
-                        <button 
+
+                        <button
                             className='next'
                             onClick={() => setSelectedYear(prevState => prevState + 1)} >
-                                <i className="fa fa-caret-right" aria-hidden="true"></i>
+                            <i className="fa fa-caret-right" aria-hidden="true"></i>
                         </button>
                     </span>
                 </div>
-                
+
             </div>
+
             <div className='other-links'>
                 <Link to='/event/posted'>Webinars You Posted</Link>{' | '}
-                <Link to='/event'>Webinars You Registered for</Link>
+                <Link to='/event/registered'>Webinars You Registered for</Link>
             </div>
-            
+
+            {/* display any events, if any */}
+            <div className='today_events'>
+                {
+                    loading  ?
+                    <Fragment>Loading</Fragment> : 
+                    <Fragment>
+                        <h3>Showing results for : <Moment format='D MMMM, YYYY'>{searchedDate}</Moment></h3>
+                        {msg !== '' && <p className='no-event'>{msg}</p>}
+                        {
+                            events.length !== 0 && <Fragment>
+                                {
+                                    events.map(event => (
+                                        <div key={uuid()} className='event'>
+                                            <h4>{event.name}</h4>
+                                            <p className='hosted-by'>Hosted By - {event.host} on {' '}
+                                                <Moment format='MMM D, YYYY'>{event.date}</Moment>
+                                            </p>
+                                            <p className='mail-event'>Email : {event.mail}</p>
+                                            <p className='des-event'>{event.description}</p>
+                                            {
+                                                event.tags.length && <div className='event-tag-con'>
+                                                    {
+                                                        event.tags.map(tag => <span key={tag.id}>{tag.tag}</span>)
+                                                    }
+                                                </div>
+                                            }
+                                            <p className='posted-on-event'>Posted On - {' '}
+                                                <Moment format='MMM D, YYYY'>{event.postedOn}</Moment>
+                                            </p>
+                                        </div>
+                                    ))
+                                }
+                            </Fragment>
+                        }
+                    </Fragment>
+                }
+            </div>
+
         </div>
     )
 }
 
-Home.propTypes = {
-    auth: PropTypes.object.isRequired
-}
-
-const mapStateToProps = state => ({
-    auth: state.auth
-})
-
-export default connect(mapStateToProps, {})(Home)
+export default Home

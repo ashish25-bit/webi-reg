@@ -7,7 +7,11 @@ const Posted = ({ auth: { user } }) => {
     return (
         <div className='container_logged'>
             <div className='your_posts_con'>
-            <h3>Events posted by {user.name}</h3>
+            <h3>
+                <Link to='/event'>
+                    <i className="fa fa-arrow-left" aria-hidden="true"></i>
+                </Link>{' '}
+            Events posted by You</h3>
                 {
                     user.posted.map(post => (
                         <div className='your-post' key={post.id}>
