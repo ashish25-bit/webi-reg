@@ -1,8 +1,9 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import uuid from 'react-uuid'
-import { Link } from 'react-router-dom'
 import axios from 'axios'
 import Moment from 'react-moment'
+import Events from '../themes/Events'
+import OtherLinks from '../layout/OtherLink'
 
 const Home = () => {
 
@@ -179,49 +180,20 @@ const Home = () => {
                         </button>
                     </span>
                 </div>
-
             </div>
 
-            <div className='other-links'>
-                <Link to='/event/posted'>Webinars You Posted</Link>{' | '}
-                <Link to='/event/registered'>Webinars You Registered for</Link>
-            </div>
+            <OtherLinks />
 
             {/* display any events, if any */}
             <div className='today_events'>
                 {
-                    loading  ?
-                    <Fragment>Loading</Fragment> : 
-                    <Fragment>
-                        <h3>Showing results for : <Moment format='D MMMM, YYYY'>{searchedDate}</Moment></h3>
-                        {msg !== '' && <p className='no-event'>{msg}</p>}
-                        {
-                            events.length !== 0 && <Fragment>
-                                {
-                                    events.map(event => (
-                                        <div key={uuid()} className='event'>
-                                            <h4>{event.name}</h4>
-                                            <p className='hosted-by'>Hosted By - {event.host} on {' '}
-                                                <Moment format='MMM D, YYYY'>{event.date}</Moment>
-                                            </p>
-                                            <p className='mail-event'>Email : {event.mail}</p>
-                                            <p className='des-event'>{event.description}</p>
-                                            {
-                                                event.tags.length && <div className='event-tag-con'>
-                                                    {
-                                                        event.tags.map(tag => <span key={tag.id}>{tag.tag}</span>)
-                                                    }
-                                                </div>
-                                            }
-                                            <p className='posted-on-event'>Posted On - {' '}
-                                                <Moment format='MMM D, YYYY'>{event.postedOn}</Moment>
-                                            </p>
-                                        </div>
-                                    ))
-                                }
-                            </Fragment>
-                        }
-                    </Fragment>
+                    loading ?
+                        <Fragment>Loading</Fragment> :
+                        <Fragment>
+                            <h3>Showing results for : <Moment format='D MMMM, YYYY'>{searchedDate}</Moment></h3>
+                            {msg !== '' && <p className='no-event'>{msg}</p>}
+                            {events.length !== 0 && <Events events={events} />}
+                        </Fragment>
                 }
             </div>
 

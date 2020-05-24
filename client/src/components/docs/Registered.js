@@ -2,9 +2,8 @@ import React, { useState, useEffect, Fragment } from 'react'
 import axios from 'axios'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import uuid from 'react-uuid'
-import Moment from 'react-moment'
 import { Link } from 'react-router-dom'
+import Events from '../themes/Events'
 
 const Registered = ({ auth: { user } }) => {
 
@@ -24,7 +23,6 @@ const Registered = ({ auth: { user } }) => {
             axios.post('/api/event/registered', data, config)
                 .then(res => {
                     setLoading(false)
-                    console.log(res.data)
                     setResult({ ...result, details: res.data, errors: '' })
                 })
                 .catch(err => {
@@ -47,33 +45,11 @@ const Registered = ({ auth: { user } }) => {
                         <i className="fa fa-arrow-left" aria-hidden="true"></i>
                     </Link>{' '}
                 Events you registered for</h3>
+                { errors.length !== 0 && <p>{errors}</p> }
                 {
-                    details.length ?
-                    <Fragment>
-                        {
-                            details.map(event => (
-                                <div key={uuid()} className='event'>
-                                    <h4>{event.name}</h4>
-                                    <p className='hosted-by'>Hosted By - {event.host} on {' '}
-                                        <Moment format='MMM D, YYYY'>{event.date}</Moment>
-                                    </p>
-                                    <p className='mail-event'>Email : {event.mail}</p>
-                                    <p className='des-event'>{event.description}</p>
-                                    {
-                                        event.tags.length && <div className='event-tag-con'>
-                                            {
-                                                event.tags.map(tag => <span key={tag.id}>{tag.tag}</span>)
-                                            }
-                                        </div>
-                                    }
-                                    <p className='posted-on-event'>Posted On - {' '}
-                                            <Moment format='MMM D, YYYY'>{event.postedOn}</Moment>
-                                    </p>
-                                </div>
-                            ))
-                        }
-                    </Fragment> :
-                    <div className='no-event'>You registered for no events</div>
+                    details.length !== 0 ?  
+                        <Events events={details} /> :
+                        <div className='no-event'>You registered for no events</div>
                 }
             </div>
         </div>

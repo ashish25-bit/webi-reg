@@ -34,12 +34,22 @@ const AddExperience = ({ addExperience }) => {
 
     const onSubmit = e => {
         e.preventDefault()
-        console.log(formData)
         addExperience(formData)
+        setFormData({
+            ...formData,
+            title: '',
+            company: '',
+            from: ' ',
+            to:' ',
+            location: '',
+            current: false,
+            description: ''
+        })
     }
 
     return (
         <div className='container_logged'>
+            <Alert msg={'alert-profile'} />
             <div className='plc'><ProfileLinks /></div>
             <form method='PUT' onSubmit={e => onSubmit(e)} className='profile_form'>
                 <ProfileHead head='Add Experience' />
@@ -75,13 +85,11 @@ const AddExperience = ({ addExperience }) => {
                     <div className='date_input'>
                         <label>From Date</label><br/>
                         <input 
-                        type='text' 
+                        type='month' 
                         name='from' 
                         value={from}
                         onChange={e => changeHandler(e)}
                         autoComplete='off'
-                        onFocus={e => e.target.type = 'month'}
-                        onBlur={e => e.target.type = 'text'}
                         required 
                     />
                     </div>
@@ -90,13 +98,11 @@ const AddExperience = ({ addExperience }) => {
                     <div className='date_input'>
                         <label>To Date</label><br/>
                         <input 
-                            type='text' 
+                            type='month' 
                             name='to' 
                             value={to}
                             onChange={e => changeHandler(e)}
                             autoComplete='off'
-                            onFocus={e => e.target.type = 'month'}
-                            onBlur={e => e.target.type = 'text'}
                             disabled={dateDisabled ? 'disabled' : ''}
                         />
                     </div>
@@ -144,8 +150,6 @@ const AddExperience = ({ addExperience }) => {
                     <button type='submit'>Add Exp</button>{' | '}
                     <a href='/profile'>Go Back</a>
                 </div>
-
-                <Alert />
                 
             </form>
         </div>

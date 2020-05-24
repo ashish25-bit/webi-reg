@@ -10,6 +10,8 @@ import {
     CLEAR_PROFILE
 } from './types'
 
+import { setAlert } from './alert'
+
 import setAuthToken from '../utils/setAuthToken'
 
 // load user
@@ -51,7 +53,7 @@ export const register = ({ name, email, password }) => async dispatch => {
     } catch (err) {
         const errors = err.response.data.errors
 
-        if (errors) console.log(errors)
+        if (errors) dispatch(setAlert(errors[0].msg))
 
         dispatch({
             type: REGISTER_FAIL
@@ -79,7 +81,7 @@ export const login = (email, password) => async dispatch => {
     } catch (err) {
         const errors = err.response.data.errors
 
-        if (errors) console.log(errors)
+        if (errors) dispatch(setAlert(errors[0].msg))
 
         dispatch({
             type: LOGIN_FAIL

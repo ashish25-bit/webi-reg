@@ -15,18 +15,16 @@ export const postEvent = (formData) => async dispatch => {
             type: USER_LOADED,
             payload: res.data
         })
-        dispatch(setAlert('Event Posted', ''))
+        dispatch(setAlert('Webinar Details Posted', ''))
     } 
     catch (err) {
-        const errors = err.response.data.errors
-        console.log(errors)
+        // const errors = err.response.data.errors
         dispatch(setAlert('There was an error', ''))
     }
 }
 
 // register for an event
 export const register = (data) => dispatch => {
-    console.log(data)
     dispatch({
         type: USER_LOADED,
         payload: data

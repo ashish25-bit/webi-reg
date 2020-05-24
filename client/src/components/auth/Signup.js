@@ -4,14 +4,15 @@ import { connect } from 'react-redux'
 import { setAlert } from '../../job/alert'
 import { register } from '../../job/auth'
 import PropTypes from 'prop-types'
+import Alert from '../layout/Alert'
 
 const Signup = ({ setAlert, register, isAuthenticated }) => {
 
     const [ formData, setFormData ] = useState({
-        name: '',
-        email: '',
-        password: '',
-        cpassword: ''
+        name: 'Ashish',
+        email: 'sample@gmail.com',
+        password: '123456',
+        cpassword: '123456'
     })
 
     const { name, email, password, cpassword } = formData
@@ -23,15 +24,17 @@ const Signup = ({ setAlert, register, isAuthenticated }) => {
     // check whether all the mandatory fields are filled
     const submitForm = e => {
         e.preventDefault()
-        if(password !== cpassword)
-            setAlert('Password dont match' , 'danger')
+        if(password !== cpassword) {
+            setAlert('Password Don\'t Match')
+        }
         else
             register({ name, email, password })
     }
 
     // redirect if logged in
-    if(isAuthenticated)
+    if(isAuthenticated) {
         return <Redirect to='/event' />
+    }
 
     return (
         <Fragment> 
@@ -111,7 +114,7 @@ const Signup = ({ setAlert, register, isAuthenticated }) => {
                             <div className='btn_con'>
                                 <button type="submit">Sign Up</button>
                             </div>
-
+                            <div className='auth_error'> <Alert /> </div>                            
                             <div className="already">Already have an account? <a href='/login'>Sign In</a></div>
                         </form>
                     </div>

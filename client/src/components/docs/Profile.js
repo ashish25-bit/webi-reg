@@ -120,7 +120,7 @@ const Profile = ({ getCurrentProfile, auth: { user }, profile: { profile ,loadin
                     </Fragment> : 
 
                     <Fragment>
-                        <p>No Profile Found.. :( -> Setup your profile</p>
+                        <p>No Profile Found.. :( <br/> Setup your profile</p>
                         <p><Link to='/settings/profile/setup'>Setup</Link></p>
                     </Fragment>
                 }

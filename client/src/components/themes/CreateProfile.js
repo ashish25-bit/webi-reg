@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
 import { createProfile } from '../../job/profile'
+import OtherLinks from '../layout/OtherLink'
 
 const CreateProfile = ({ createProfile, history }) => {
 

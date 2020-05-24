@@ -3,11 +3,12 @@ import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { login } from '../../job/auth'
+import Alert from '../layout/Alert'
 
 const Login = ({ login, isAuthenticated }) => {
 
     const [formData, setFormData] = useState({
-        email: 'sample@gmail.com',
+        email: 'ashishyoel23@gmail.com',
         password: '123456'
     })
     const { email, password } = formData
@@ -78,7 +79,7 @@ const Login = ({ login, isAuthenticated }) => {
                             <div className='btn_con'>
                                 <button type="submit">Sign In</button>
                             </div>
-
+                            <div className='auth_error'> <Alert /> </div>   
                             <div className="already">Don't have an account? <a href='/'>Sign Up</a></div>
 
                         </form>
@@ -92,7 +93,7 @@ const Login = ({ login, isAuthenticated }) => {
 
 Login.propTypes = {
     login: PropTypes.func.isRequired,
-    isAuthenticated: PropTypes.bool
+    isAuthenticated: PropTypes.bool,
 }
 
 const mapStateToProps = state => ({

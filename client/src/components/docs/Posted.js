@@ -13,13 +13,15 @@ const Posted = ({ auth: { user } }) => {
                 </Link>{' '}
             Events posted by You</h3>
                 {
+                    user.posted.length!== 0 ? 
                     user.posted.map(post => (
                         <div className='your-post' key={post.id}>
                             <h3>{post.name}</h3> 
-                            <Link to={`/event/posted/${post.id}`}>Edit Webinar Details</Link>
+                            <Link to={`/event/posted/${post.id}`}>See Webinar Details</Link>
                             <button id={post.id}>Delete This Event</button>
                         </div>
-                    ))
+                    )) : 
+                    <p style={{ textAlign:"center", fontWeight:"bolder" }} >You Haven't Posted any event</p>
                 }
             </div>
         </div>

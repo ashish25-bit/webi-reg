@@ -42,7 +42,6 @@ router.post('/',
             console.log(err)
             res.status(500).send('Server error')
         }
-
     })
 
 // get the event details

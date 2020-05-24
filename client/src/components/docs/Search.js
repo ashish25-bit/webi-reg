@@ -5,6 +5,7 @@ import axios from 'axios'
 import uuid from 'react-uuid'
 import Moment from 'react-moment'
 import { register } from '../../job/event'
+import OtherLink from '../layout/OtherLink'
 
 const Search = ({ auth: { user }, register }) => {
 
@@ -48,7 +49,6 @@ const Search = ({ auth: { user }, register }) => {
         axios.put('/api/event/register', data, config)
             .then(res => {
                 setEngaged(false)
-                console.log(res.data)
                 register(res.data)
             })
             .catch(err => console.log(err))
@@ -60,6 +60,7 @@ const Search = ({ auth: { user }, register }) => {
 
     return (
         <div className='container_logged'>
+            <OtherLink />
             <form method='POST' className='search_event_form' onSubmit={e => onSubmit(e)}>
                 <div className='search_option'>
                     <input
@@ -155,7 +156,7 @@ const Search = ({ auth: { user }, register }) => {
                                         <p className='mail-event'>Email : {event.mail}</p>
                                         <p className='des-event'>{event.description}</p>
                                         {
-                                            event.tags.length && <div className='event-tag-con'>
+                                            event.tags.length !== 0 && <div className='event-tag-con'>
                                                 {
                                                     event.tags.map(tag => <span key={tag.id}>{tag.tag}</span>)
                                                 }

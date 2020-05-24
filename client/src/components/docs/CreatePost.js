@@ -5,6 +5,7 @@ import uuid from 'react-uuid'
 import { Link } from 'react-router-dom'
 import { postEvent } from '../../job/event'
 import Alert from '../layout/Alert'
+import OtherLinks from '../layout/OtherLink'
 
 const CreatePost = ({postEvent, auth: { user } }) => {
 
@@ -50,6 +51,9 @@ const CreatePost = ({postEvent, auth: { user } }) => {
 
     return (
         <div className='container_logged'>
+            <OtherLinks />
+            {/* alert */}
+            <Alert msg={'alert-post'} />
             <form method='POST' onSubmit={e => eventPost(e)} className='profile_form' >
                 <h3>Post Event Details</h3>
                 {/* name */}
@@ -63,10 +67,15 @@ const CreatePost = ({postEvent, auth: { user } }) => {
                         value={name}
                         onChange={e => changeHandler(e)}
                     />
+                    <small 
+                        style={{color: "#757575",fontSize:'12px'}}>
+                        You <strong>won't</strong> be allowed to change the 
+                        <strong> name</strong> later.
+                    </small>
                 </div>
                 {/* host */}
                 <div className='aside_btn_input'>
-                    <label>Host</label>
+                    <label style={{position:'relative', top:'15px'}}>Host</label>
                     <div>
                         <input
                             type='text'
@@ -172,8 +181,6 @@ const CreatePost = ({postEvent, auth: { user } }) => {
                 <div className='post_event_btn'>
                     <button type='submit'>Post Event Details</button>
                 </div>
-                {/* alert */}
-                <div className="alert-profile"><Alert/></div>
             </form>
             <Link to='/event/posted'>See Posted Events</Link>
         </div>

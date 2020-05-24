@@ -2,8 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-const Alert = ({ alerts }) => alerts !== null && alerts.length > 0 && alerts.map(alert => (
-    <div key={alert.id} className={alerts.alertType}>
+const Alert = ({ alerts, msg }) => alerts !== null && alerts.length > 0 && alerts.map(alert => (
+    <div key={alert.id} className={msg}>
         { alert.msg }
     </div>
 ))

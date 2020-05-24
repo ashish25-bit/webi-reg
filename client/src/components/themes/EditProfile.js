@@ -60,6 +60,7 @@ const EditProfile = ({profile: { profile, loading }, createProfile, getCurrentPr
 
     return (
         <div className='container_logged'>
+            <Alert msg={"alert-profile"} />
             <div className='plc'><ProfileLinks /></div>
             <form method='POST' onSubmit={e => onSubmit(e)} className='profile_form'>
                 <ProfileHead head='Edit Profile' />
@@ -210,7 +211,6 @@ const EditProfile = ({profile: { profile, loading }, createProfile, getCurrentPr
                     <Link to='/profile'>Go Back</Link>
                 </div>
 
-                <div className="alert-profile"><Alert /></div>
             </form>
         </div>
     )
