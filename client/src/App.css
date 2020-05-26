@@ -24,11 +24,15 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
-.logo {
+/* .logo {
   font-family: 'Monofett', cursive;
   float: left;
   font-size: 25px;
   color: #0A3A3E;
+} */
+.logo {
+  width: 30px;
+  float: left;
 }
 button {
   cursor: pointer;
@@ -779,4 +783,21 @@ button {
 .your_post_det {
   width: 600px;
   margin: 0 auto;
+}
+.participants_con {
+  width: 600px;
+  margin: 30px auto;  
+}
+.participant {
+  padding: 4px 11px;
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: bolder;
+  margin: 5px 0;
+  box-shadow: 0 0 3px rgba(0,0,0,0.5);
+}
+.participant span{
+  color: #757575;
+  font-size: 15px;
+  font-weight: normal;
 }

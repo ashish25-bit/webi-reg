@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { logout } from '../../job/auth'
+import logo from '../../images/logo.svg'
 
 const Header = ({ auth: { isAuthenticated, loading }, logout }) => {
 
@@ -19,7 +20,7 @@ const Header = ({ auth: { isAuthenticated, loading }, logout }) => {
     const authLinks = (
         <div className='header headerLogin'>
             <div className='header_con'>
-                <Link className='logo' to='/event'>WR</Link>
+                <Link to='/'> <img src={logo} className='logo' /> </Link>
                 <Link className='nav_link' to='/event'>Home</Link>
                 <Link className='nav_link' to='/event/post'>Post Event</Link>
                 <Link className='nav_link' to='/event/search'>Search</Link>

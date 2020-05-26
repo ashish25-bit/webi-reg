@@ -62,7 +62,8 @@ router.get('/id/:id', auth, async (req, res) => {
         const event = await Event.findById(req.params.id)
         if (!event)
             return res.status(400).json({ msg: 'Event not found' })
-        res.json(event)
+        const userInfo = await User.find({}).where('_id').in(event.attendee).select('-password')
+        res.json({users: userInfo, event})
     }
     catch (err) {
         console.error(err.message)
