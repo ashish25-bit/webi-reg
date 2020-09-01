@@ -20,7 +20,7 @@ const Header = ({ auth: { isAuthenticated, loading }, logout }) => {
     const authLinks = (
         <div className='header headerLogin'>
             <div className='header_con'>
-                <Link to='/'> <img src={logo} className='logo' /> </Link>
+                <Link to='/'> <img src={logo} alt='icon' className='logo' /> </Link>
                 <Link className='nav_link' to='/event'>Home</Link>
                 <Link className='nav_link' to='/event/post'>Post Event</Link>
                 <Link className='nav_link' to='/event/search'>Search</Link>

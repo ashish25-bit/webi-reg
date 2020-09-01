@@ -1,12 +1,11 @@
 import React , { Fragment, useState } from 'react'
-import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { setAlert } from '../../job/alert'
 import { register } from '../../job/auth'
 import PropTypes from 'prop-types'
 import Alert from '../layout/Alert'
 
-const Signup = ({ setAlert, register, isAuthenticated }) => {
+const Signup = ({ setAlert, register }) => {
 
     const [ formData, setFormData ] = useState({
         name: 'Ashish',
@@ -29,11 +28,6 @@ const Signup = ({ setAlert, register, isAuthenticated }) => {
         }
         else
             register({ name, email, password })
-    }
-
-    // redirect if logged in
-    if(isAuthenticated) {
-        return <Redirect to='/event' />
     }
 
     return (
@@ -129,8 +123,4 @@ Signup.propTypes = {
     setAlert: PropTypes.func.isRequired
 }
 
-const mapStateToProps = state => ({
-    isAuthenticated: state.auth.isAuthenticated
-})
-
-export default connect(mapStateToProps, { setAlert, register })(Signup)
+export default connect(null, { setAlert, register })(Signup)

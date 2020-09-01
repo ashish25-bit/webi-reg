@@ -1,11 +1,10 @@
 import React, { Fragment, useState, useEffect } from 'react'
-import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { login } from '../../job/auth'
 import Alert from '../layout/Alert'
 
-const Login = ({ login, isAuthenticated }) => {
+const Login = ({ login }) => {
 
     const [formData, setFormData] = useState({
         email: 'ashishyoel23@gmail.com',
@@ -22,10 +21,6 @@ const Login = ({ login, isAuthenticated }) => {
     useEffect(() => {document.title = 'WebiReg - Login'},[])
 
     const changeHandler = e => setFormData({ ...formData, [e.target.name]: e.target.value }) 
-
-    // redirect if logged in
-    if(isAuthenticated)
-        return <Redirect to='/event' />
 
     return (
         <Fragment>
@@ -93,11 +88,11 @@ const Login = ({ login, isAuthenticated }) => {
 
 Login.propTypes = {
     login: PropTypes.func.isRequired,
-    isAuthenticated: PropTypes.bool,
+    // isAuthenticated: PropTypes.bool,
 }
 
-const mapStateToProps = state => ({
-    isAuthenticated: state.auth.isAuthenticated
-})
+// const mapStateToProps = state => ({
+//     isAuthenticated: state.auth.isAuthenticated
+// })
 
-export default connect(mapStateToProps, { login })(Login)
+export default connect(null, { login })(Login)
