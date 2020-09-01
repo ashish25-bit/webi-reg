@@ -8,16 +8,17 @@ const AuthRoutes = ({
     auth: { isAuthenticated },
     ...rest
 }) => {
-    console.log(localStorage.getItem('token'))
     return (
         <Route 
             {...rest}
             render={props => 
-                !isAuthenticated ? (
-                     <Component {...props} />
+                localStorage.getItem('token') === null ? (
+                    <Component {...props} /> 
+                ) : !isAuthenticated ? (
+                    <h2>Loading...</h2>
                 ) : (
-                     <Redirect to='/event/post' />
-                )    
+                    <Redirect to='/event/post' />
+                )
             }
         />
     )
