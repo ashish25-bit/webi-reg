@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { logout } from '../../job/auth'
 import logo from '../../images/logo.svg'
 
-const Header = ({ auth: { isAuthenticated, loading }, logout }) => {
+const Header = ({ auth: { isAuthenticated }, logout }) => {
 
     const landLinks = (
         <div className='header'>

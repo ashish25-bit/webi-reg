@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { Switch } from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom'
 import Login from '../auth/Login'
 import Signup from '../auth/Signup'
 import Profile from '../docs/Profile'
@@ -15,6 +15,7 @@ import YourPost from '../docs/YourPost'
 import Registered from '../docs/Registered'
 import PrivateRoute from './PrivateRoute'
 import AuthRoutes from './AuthRoutes'
+import NotFound from '../layout/NotFound'
 
 const Routes = () => {
     return (
@@ -33,6 +34,7 @@ const Routes = () => {
                 <PrivateRoute exact path='/settings/profile/experience' component={AddExperience} />
                 <PrivateRoute exact path='/settings/profile/education' component={AddEducation} />
                 <PrivateRoute exact path='/event/posted/:id' component={YourPost} />
+                <Route component={NotFound} />
             </Switch>
         </Fragment>
     )
