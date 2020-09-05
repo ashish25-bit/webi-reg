@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import uuid from 'react-uuid'
-import axios from 'axios'
+import api from '../../utils/api'
 import Moment from 'react-moment'
 import Events from '../themes/Events'
 import OtherLinks from '../layout/OtherLink'
@@ -32,16 +32,11 @@ const Home = () => {
     // for getting the events user has registered for a particular date
     useEffect(() => {
         setLoading(true)
-        const config = {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }
         var d = new Date()
         d.setFullYear(selectedYear, monthShort.indexOf(selectedMonth), selectedDate)
         const sendDate = d.toLocaleDateString().split('/').reverse().join('-')
 
-        axios.post('/api/event/date', { date: sendDate }, config)
+        api.post('/event/date', { date: sendDate })
             .then(res => {
                 !res.data.msg ?
                     setResult({ ...result, events: res.data, msg: '', searchedDate: sendDate }) :

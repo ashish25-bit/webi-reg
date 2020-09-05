@@ -1,7 +1,7 @@
 import React, { useState, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import axios from 'axios'
+import api from '../../utils/api'
 import uuid from 'react-uuid'
 import Moment from 'react-moment'
 import { register } from '../../job/event'
@@ -20,13 +20,8 @@ const Search = ({ auth: { user }, register }) => {
         e.preventDefault()
         if (key !== '') {
             setLoading(true)
-            const config = {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }
             const data = { key: key.trim(), type, id: user._id }
-            axios.post('/api/event/find', data, config)
+            api.post('/event/find', data)
                 .then(res => {
                     setLoading(false)
                     res.data.msg ? setResult({ ...result, events: [], errors: res.data.msg }) :
@@ -40,13 +35,8 @@ const Search = ({ auth: { user }, register }) => {
     const dRegister = e => {
         e.preventDefault()
         setEngaged(true)
-        const config = {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }
         const data = {id: e.target.id}
-        axios.put('/api/event/register', data, config)
+        api.put('/event/register', data)
             .then(res => {
                 setEngaged(false)
                 register(res.data)

@@ -1,4 +1,4 @@
-import axios from 'axios'
+import api from '../utils/api'
 import { setAlert } from './alert'
 
 import {
@@ -10,7 +10,7 @@ import {
 // get current users profile
 export const getCurrentProfile = () => async dispatch => {
     try {
-        const res = await axios.get('/api/profile/me')
+        const res = await api.get('/profile/me')
         dispatch({
             type: GET_PROFILE,
             payload: res.data
@@ -27,12 +27,7 @@ export const getCurrentProfile = () => async dispatch => {
 // create or update the profile
 export const createProfile = (formData, history, edit=false) => async dispatch => {
     try {
-        const config = {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }
-        const res = await axios.post('/api/profile', formData, config)
+        const res = await api.post('/profile', formData)
 
         dispatch ({
             type: GET_PROFILE,
@@ -57,12 +52,7 @@ export const createProfile = (formData, history, edit=false) => async dispatch =
 export const addExperience = (formData) => async dispatch => {
 
     try {
-        const config = {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }
-        const res = await axios.put('/api/profile/experience', formData, config)
+        const res = await api.put('/profile/experience', formData)
 
         dispatch ({
             type: UPDATE_PROFILE,
@@ -86,12 +76,7 @@ export const addExperience = (formData) => async dispatch => {
 export const addEducation = (formData) => async dispatch => {
 
     try {
-        const config = {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }
-        const res = await axios.put('/api/profile/education', formData, config)
+        const res = await api.put('/profile/education', formData)
 
         dispatch ({
             type: UPDATE_PROFILE,

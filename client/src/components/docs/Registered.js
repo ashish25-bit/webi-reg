@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Fragment } from 'react'
-import axios from 'axios'
+import api from '../../utils/api'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
@@ -11,16 +11,10 @@ const Registered = ({ auth: { user } }) => {
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-        const config = {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }
-
         if (user.events.length) {
             setLoading(true)
             const data = { id: user.events }
-            axios.post('/api/event/registered', data, config)
+            api.post('/event/registered', data)
                 .then(res => {
                     setLoading(false)
                     setResult({ ...result, details: res.data, errors: '' })

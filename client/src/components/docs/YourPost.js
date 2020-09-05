@@ -1,5 +1,6 @@
 import React, { useState, useEffect, Fragment } from 'react'
-import axios from 'axios'
+// import axios from 'axios'
+import api from '../../utils/api'
 import Events from '../themes/Events'
 import { Link } from 'react-router-dom'
 import OtherLinks from '../layout/OtherLink'
@@ -10,7 +11,7 @@ const YourPost = ({ match }) => {
     const [members, setMembers] = useState([])
 
     useEffect(() => {
-        axios.get(`/api/event/id/${match.params.id}`)
+        api.get(`/event/id/${match.params.id}`)
             .then(res => {
                 setMembers(res.data.users)
                 setDetails({ ...details, info: [res.data.event] })

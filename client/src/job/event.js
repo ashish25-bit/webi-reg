@@ -1,16 +1,11 @@
-import axios from 'axios'
+import api from '../utils/api'
 import { setAlert } from './alert'
 import { USER_LOADED } from './types' 
 
 // post an event
 export const postEvent = (formData) => async dispatch => {
     try {
-        const config = {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }
-        const res = await axios.post('/api/event', formData, config)
+        const res = await api.post('/event', formData)
         dispatch({
             type: USER_LOADED,
             payload: res.data

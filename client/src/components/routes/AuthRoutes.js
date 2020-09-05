@@ -17,7 +17,7 @@ const AuthRoutes = ({
                 ) : !isAuthenticated ? (
                     <h2>Loading...</h2>
                 ) : (
-                    <Redirect to='/event/post' />
+                    <Redirect to='/event' />
                 )
             }
         />
